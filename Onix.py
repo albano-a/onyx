@@ -7,14 +7,13 @@ import pandas as pd
 import matplotlib.pyplot as plt
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg, NavigationToolbar2QT
 from matplotlib.figure import Figure
-import scienceplots
 from tomiUI import Ui_MainWindow
 from pykrige.ok import OrdinaryKriging
 import os
 import sys
 import shutil
 
-plt.style.use(['ggplot', 'grid'])
+plt.style.use(['ggplot'])
 
 class MainProgramWindow(QMainWindow, Ui_MainWindow):
     def __init__(self):
@@ -184,6 +183,7 @@ class MainProgramWindow(QMainWindow, Ui_MainWindow):
         ax.set_xlim(0,100)
         ax.set_xlabel("TOMI index (%)")
         ax.set_ylabel("Profundidade (m)")
+        plt.grid()
         # self.canvas.figure.set_tight_layout(True)
         self.canvas.draw()
 
