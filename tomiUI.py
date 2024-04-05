@@ -27,6 +27,9 @@ class Ui_MainWindow(object):
         if not MainWindow.objectName():
             MainWindow.setObjectName(u"MainWindow")
         MainWindow.resize(598, 860)
+        icon = QIcon()
+        icon.addFile(u"tomi_icon.png", QSize(), QIcon.Normal, QIcon.Off)
+        MainWindow.setWindowIcon(icon)
         self.actionReset_Original_View = QAction(MainWindow)
         self.actionReset_Original_View.setObjectName(u"actionReset_Original_View")
         self.centralwidget = QWidget(MainWindow)
@@ -48,6 +51,7 @@ class Ui_MainWindow(object):
 
         self.toolBox = QToolBox(self.frame)
         self.toolBox.setObjectName(u"toolBox")
+        self.toolBox.setEnabled(True)
         font = QFont()
         font.setPointSize(10)
         font.setBold(False)
@@ -80,6 +84,11 @@ class Ui_MainWindow(object):
 
         self.gridLayout.addWidget(self.fileTOMIComboBox, 0, 1, 1, 2)
 
+        self.importFileBtn = QPushButton(self.fileImportTool)
+        self.importFileBtn.setObjectName(u"importFileBtn")
+
+        self.gridLayout.addWidget(self.importFileBtn, 0, 3, 1, 1)
+
         self.label_2 = QLabel(self.fileImportTool)
         self.label_2.setObjectName(u"label_2")
         self.label_2.setFont(font1)
@@ -98,9 +107,9 @@ class Ui_MainWindow(object):
         self.fileTOMIBtnGroup.addButton(self.txtFileRadioButton)
         self.txtFileRadioButton.setObjectName(u"txtFileRadioButton")
         self.txtFileRadioButton.setFont(font1)
-        icon = QIcon()
-        icon.addFile(u"mpanicon/txt.png", QSize(), QIcon.Normal, QIcon.Off)
-        self.txtFileRadioButton.setIcon(icon)
+        icon1 = QIcon()
+        icon1.addFile(u"J:/Universidade/GIECAR/mpanicon/txt.png", QSize(), QIcon.Normal, QIcon.Off)
+        self.txtFileRadioButton.setIcon(icon1)
         self.txtFileRadioButton.setIconSize(QSize(32, 32))
 
         self.gridLayout.addWidget(self.txtFileRadioButton, 1, 2, 1, 1, Qt.AlignHCenter)
@@ -110,9 +119,9 @@ class Ui_MainWindow(object):
         self.xlsxFileRadioButton.setObjectName(u"xlsxFileRadioButton")
         self.xlsxFileRadioButton.setEnabled(False)
         self.xlsxFileRadioButton.setFont(font1)
-        icon1 = QIcon()
-        icon1.addFile(u"mpanicon/xlsx.png", QSize(), QIcon.Normal, QIcon.Off)
-        self.xlsxFileRadioButton.setIcon(icon1)
+        icon2 = QIcon()
+        icon2.addFile(u"J:/Universidade/GIECAR/mpanicon/xlsx.png", QSize(), QIcon.Normal, QIcon.Off)
+        self.xlsxFileRadioButton.setIcon(icon2)
         self.xlsxFileRadioButton.setIconSize(QSize(32, 32))
 
         self.gridLayout.addWidget(self.xlsxFileRadioButton, 1, 3, 1, 1, Qt.AlignHCenter)
@@ -122,17 +131,12 @@ class Ui_MainWindow(object):
         self.csvFileRadioButton.setObjectName(u"csvFileRadioButton")
         self.csvFileRadioButton.setSizeIncrement(QSize(0, 0))
         self.csvFileRadioButton.setFont(font1)
-        icon2 = QIcon()
-        icon2.addFile(u"mpanicon/csv.png", QSize(), QIcon.Normal, QIcon.Off)
-        self.csvFileRadioButton.setIcon(icon2)
+        icon3 = QIcon()
+        icon3.addFile(u"J:/Universidade/GIECAR/mpanicon/csv.png", QSize(), QIcon.Normal, QIcon.Off)
+        self.csvFileRadioButton.setIcon(icon3)
         self.csvFileRadioButton.setIconSize(QSize(32, 32))
 
         self.gridLayout.addWidget(self.csvFileRadioButton, 1, 1, 1, 1, Qt.AlignHCenter)
-
-        self.importFileBtn = QPushButton(self.fileImportTool)
-        self.importFileBtn.setObjectName(u"importFileBtn")
-
-        self.gridLayout.addWidget(self.importFileBtn, 0, 3, 1, 1)
 
 
         self.horizontalLayout.addLayout(self.gridLayout)
@@ -293,12 +297,12 @@ class Ui_MainWindow(object):
         MainWindow.setWindowTitle(QCoreApplication.translate("MainWindow", u"MainWindow", None))
         self.actionReset_Original_View.setText(QCoreApplication.translate("MainWindow", u"Reset Original View", None))
         self.label.setText(QCoreApplication.translate("MainWindow", u"<html><head/><body><p align=\"center\"><span style=\" font-size:10pt; font-weight:600;\">TOMI Index</span></p></body></html>", None))
+        self.importFileBtn.setText(QCoreApplication.translate("MainWindow", u"Importar", None))
         self.label_2.setText(QCoreApplication.translate("MainWindow", u"Arquivo:", None))
         self.label_3.setText(QCoreApplication.translate("MainWindow", u"Tipo de arquivo:", None))
         self.txtFileRadioButton.setText(QCoreApplication.translate("MainWindow", u".txt", None))
         self.xlsxFileRadioButton.setText(QCoreApplication.translate("MainWindow", u".xlsx", None))
         self.csvFileRadioButton.setText(QCoreApplication.translate("MainWindow", u".csv", None))
-        self.importFileBtn.setText(QCoreApplication.translate("MainWindow", u"Importar", None))
         self.toolBox.setItemText(self.toolBox.indexOf(self.fileImportTool), QCoreApplication.translate("MainWindow", u"Importa\u00e7\u00e3o de arquivo", None))
         self.label_4.setText(QCoreApplication.translate("MainWindow", u"T\u00edtulo do plot:", None))
         self.label_6.setText(QCoreApplication.translate("MainWindow", u"Cor da linha:", None))
