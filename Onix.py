@@ -1,4 +1,6 @@
-from PySide6.QtWidgets import QFileDialog, QApplication, QPushButton, QToolBar, QVBoxLayout, QMainWindow, QMessageBox, QGraphicsScene, QGraphicsView
+from PySide6.QtWidgets import (QFileDialog, QApplication, QPushButton,
+                               QToolBar, QVBoxLayout, QMainWindow,
+                               QMessageBox, QGraphicsScene, QGraphicsView)
 from PySide6.QtUiTools import QUiLoader
 from PySide6.QtCore import QFile, QRectF
 from PySide6.QtGui import QIcon, Qt
@@ -8,6 +10,7 @@ import matplotlib.pyplot as plt
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg, NavigationToolbar2QT
 from matplotlib.figure import Figure
 from tomiUI import Ui_MainWindow
+import plotly.graph_objects as go
 from pykrige.ok import OrdinaryKriging
 import os
 import sys
@@ -33,7 +36,7 @@ class MainProgramWindow(QMainWindow, Ui_MainWindow):
         self.plotLayout.addWidget(self.canvas)
 
         # Set the layout of the parent widget
-        self.matplotlib_toolbar = NavigationToolbar2QT(self.canvas, self)
+        self.matplotlib_toolbar = NavigationToolbar2QT(self.canvas)
         # Create a custom toolbar
         # Create a button for each function and add it to the custom toolbar
         self.homeButton.clicked.connect(self.matplotlib_toolbar.home)
