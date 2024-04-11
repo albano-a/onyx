@@ -26,6 +26,7 @@ class Ui_MainWindow(object):
         if not MainWindow.objectName():
             MainWindow.setObjectName(u"MainWindow")
         MainWindow.resize(936, 877)
+        MainWindow.setStyleSheet(u"")
         self.centralwidget = QWidget(MainWindow)
         self.centralwidget.setObjectName(u"centralwidget")
         self.verticalLayout_4 = QVBoxLayout(self.centralwidget)
@@ -51,31 +52,103 @@ class Ui_MainWindow(object):
         self.gridLayout.setObjectName(u"gridLayout")
         self.homeButton = QPushButton(self.centralwidget)
         self.homeButton.setObjectName(u"homeButton")
+        self.homeButton.setStyleSheet(u"QPushButton {\n"
+"	border-radius: 5px;\n"
+"	border: 1px solid #ababab;\n"
+"	height: 20px;\n"
+"	background-color: qlineargradient(spread:pad, x1:0.454545, y1:0, x2:0.454545, y2:1, stop:0 rgba(253, 253, 253, 255), stop:1 rgba(239, 239, 239, 255));\n"
+"\n"
+"	\n"
+"}\n"
+"\n"
+"QPushButton:hover {\n"
+"    background: qlineargradient(spread:pad, x1:0.454545, y1:0, x2:0.454545, y2:1, stop:0 rgba(254, 254, 254, 255), stop:1 rgba(248, 248, 248, 255));\n"
+"}")
 
         self.gridLayout.addWidget(self.homeButton, 0, 0, 1, 1)
 
         self.backButton = QPushButton(self.centralwidget)
         self.backButton.setObjectName(u"backButton")
+        self.backButton.setStyleSheet(u"QPushButton {\n"
+"	border-radius: 5px;\n"
+"	border: 1px solid #ababab;\n"
+"	height: 20px;\n"
+"	background-color: qlineargradient(spread:pad, x1:0.454545, y1:0, x2:0.454545, y2:1, stop:0 rgba(253, 253, 253, 255), stop:1 rgba(239, 239, 239, 255));\n"
+"\n"
+"	\n"
+"}\n"
+"\n"
+"QPushButton:hover {\n"
+"    background: qlineargradient(spread:pad, x1:0.454545, y1:0, x2:0.454545, y2:1, stop:0 rgba(254, 254, 254, 255), stop:1 rgba(248, 248, 248, 255));\n"
+"}")
 
         self.gridLayout.addWidget(self.backButton, 0, 1, 1, 1)
 
         self.forwardButton = QPushButton(self.centralwidget)
         self.forwardButton.setObjectName(u"forwardButton")
+        self.forwardButton.setStyleSheet(u"QPushButton {\n"
+"	border-radius: 5px;\n"
+"	border: 1px solid #ababab;\n"
+"	height: 20px;\n"
+"	background-color: qlineargradient(spread:pad, x1:0.454545, y1:0, x2:0.454545, y2:1, stop:0 rgba(253, 253, 253, 255), stop:1 rgba(239, 239, 239, 255));\n"
+"\n"
+"	\n"
+"}\n"
+"\n"
+"QPushButton:hover {\n"
+"    background: qlineargradient(spread:pad, x1:0.454545, y1:0, x2:0.454545, y2:1, stop:0 rgba(254, 254, 254, 255), stop:1 rgba(248, 248, 248, 255));\n"
+"}")
 
         self.gridLayout.addWidget(self.forwardButton, 0, 2, 1, 1)
 
         self.zoomButton = QPushButton(self.centralwidget)
         self.zoomButton.setObjectName(u"zoomButton")
+        self.zoomButton.setStyleSheet(u"QPushButton {\n"
+"	border-radius: 5px;\n"
+"	border: 1px solid #ababab;\n"
+"	height: 20px;\n"
+"	background-color: qlineargradient(spread:pad, x1:0.454545, y1:0, x2:0.454545, y2:1, stop:0 rgba(253, 253, 253, 255), stop:1 rgba(239, 239, 239, 255));\n"
+"\n"
+"	\n"
+"}\n"
+"\n"
+"QPushButton:hover {\n"
+"    background: qlineargradient(spread:pad, x1:0.454545, y1:0, x2:0.454545, y2:1, stop:0 rgba(254, 254, 254, 255), stop:1 rgba(248, 248, 248, 255));\n"
+"}")
 
         self.gridLayout.addWidget(self.zoomButton, 1, 0, 1, 1)
 
         self.panButton = QPushButton(self.centralwidget)
         self.panButton.setObjectName(u"panButton")
+        self.panButton.setStyleSheet(u"QPushButton {\n"
+"	border-radius: 5px;\n"
+"	border: 1px solid #ababab;\n"
+"	height: 20px;\n"
+"	background-color: qlineargradient(spread:pad, x1:0.454545, y1:0, x2:0.454545, y2:1, stop:0 rgba(253, 253, 253, 255), stop:1 rgba(239, 239, 239, 255));\n"
+"\n"
+"	\n"
+"}\n"
+"\n"
+"QPushButton:hover {\n"
+"    background: qlineargradient(spread:pad, x1:0.454545, y1:0, x2:0.454545, y2:1, stop:0 rgba(254, 254, 254, 255), stop:1 rgba(248, 248, 248, 255));\n"
+"}")
 
         self.gridLayout.addWidget(self.panButton, 1, 1, 1, 1)
 
         self.editButton = QPushButton(self.centralwidget)
         self.editButton.setObjectName(u"editButton")
+        self.editButton.setStyleSheet(u"QPushButton {\n"
+"	border-radius: 5px;\n"
+"	border: 1px solid #ababab;\n"
+"	height: 20px;\n"
+"	background-color: qlineargradient(spread:pad, x1:0.454545, y1:0, x2:0.454545, y2:1, stop:0 rgba(253, 253, 253, 255), stop:1 rgba(239, 239, 239, 255));\n"
+"\n"
+"	\n"
+"}\n"
+"\n"
+"QPushButton:hover {\n"
+"    background: qlineargradient(spread:pad, x1:0.454545, y1:0, x2:0.454545, y2:1, stop:0 rgba(254, 254, 254, 255), stop:1 rgba(248, 248, 248, 255));\n"
+"}")
 
         self.gridLayout.addWidget(self.editButton, 1, 2, 1, 1)
 
@@ -89,6 +162,18 @@ class Ui_MainWindow(object):
         font.setPointSize(12)
         font.setBold(True)
         self.plotTOMIBtn.setFont(font)
+        self.plotTOMIBtn.setStyleSheet(u"QPushButton {\n"
+"	border-radius: 5px;\n"
+"	border: 1px solid #ababab;\n"
+"	height: 20px;\n"
+"	background-color: qlineargradient(spread:pad, x1:0.454545, y1:0, x2:0.454545, y2:1, stop:0 rgba(253, 253, 253, 255), stop:1 rgba(239, 239, 239, 255));\n"
+"\n"
+"	\n"
+"}\n"
+"\n"
+"QPushButton:hover {\n"
+"    background: qlineargradient(spread:pad, x1:0.454545, y1:0, x2:0.454545, y2:1, stop:0 rgba(254, 254, 254, 255), stop:1 rgba(248, 248, 248, 255));\n"
+"}")
 
         self.verticalLayout_4.addWidget(self.plotTOMIBtn)
 
@@ -118,10 +203,54 @@ class Ui_MainWindow(object):
         self.verticalLayout_3.setObjectName(u"verticalLayout_3")
         self.gridLayout_2 = QGridLayout()
         self.gridLayout_2.setObjectName(u"gridLayout_2")
-        self.exportDataButton = QPushButton(self.tab)
-        self.exportDataButton.setObjectName(u"exportDataButton")
+        self.formationNameInput = QLineEdit(self.tab)
+        self.formationNameInput.setObjectName(u"formationNameInput")
 
-        self.gridLayout_2.addWidget(self.exportDataButton, 8, 0, 1, 1)
+        self.gridLayout_2.addWidget(self.formationNameInput, 13, 0, 1, 1)
+
+        self.label = QLabel(self.tab)
+        self.label.setObjectName(u"label")
+
+        self.gridLayout_2.addWidget(self.label, 12, 0, 1, 1)
+
+        self.plotTOMIBtn_2 = QPushButton(self.tab)
+        self.plotTOMIBtn_2.setObjectName(u"plotTOMIBtn_2")
+        self.plotTOMIBtn_2.setStyleSheet(u"QPushButton {\n"
+"	border-radius: 5px;\n"
+"	border: 1px solid #ababab;\n"
+"	height: 20px;\n"
+"	background-color: qlineargradient(spread:pad, x1:0.454545, y1:0, x2:0.454545, y2:1, stop:0 rgba(253, 253, 253, 255), stop:1 rgba(239, 239, 239, 255));\n"
+"\n"
+"	\n"
+"}\n"
+"\n"
+"QPushButton:hover {\n"
+"    background: qlineargradient(spread:pad, x1:0.454545, y1:0, x2:0.454545, y2:1, stop:0 rgba(254, 254, 254, 255), stop:1 rgba(248, 248, 248, 255));\n"
+"}")
+
+        self.gridLayout_2.addWidget(self.plotTOMIBtn_2, 10, 0, 1, 1)
+
+        self.importFileBtn = QPushButton(self.tab)
+        self.importFileBtn.setObjectName(u"importFileBtn")
+        self.importFileBtn.setStyleSheet(u"QPushButton {\n"
+"	border-radius: 5px;\n"
+"	border: 1px solid #ababab;\n"
+"	height: 20px;\n"
+"	background-color: qlineargradient(spread:pad, x1:0.454545, y1:0, x2:0.454545, y2:1, stop:0 rgba(253, 253, 253, 255), stop:1 rgba(239, 239, 239, 255));\n"
+"\n"
+"	\n"
+"}\n"
+"\n"
+"QPushButton:hover {\n"
+"    background: qlineargradient(spread:pad, x1:0.454545, y1:0, x2:0.454545, y2:1, stop:0 rgba(254, 254, 254, 255), stop:1 rgba(248, 248, 248, 255));\n"
+"}")
+
+        self.gridLayout_2.addWidget(self.importFileBtn, 2, 0, 1, 1)
+
+        self.label_11 = QLabel(self.tab)
+        self.label_11.setObjectName(u"label_11")
+
+        self.gridLayout_2.addWidget(self.label_11, 8, 0, 1, 1)
 
         self.xlsxFileRadioButton = QRadioButton(self.tab)
         self.fileTOMIBtnGroup = QButtonGroup(MainWindow)
@@ -141,8 +270,20 @@ class Ui_MainWindow(object):
 
         self.saveButton = QPushButton(self.tab)
         self.saveButton.setObjectName(u"saveButton")
+        self.saveButton.setStyleSheet(u"QPushButton {\n"
+"	border-radius: 5px;\n"
+"	border: 1px solid #ababab;\n"
+"	height: 20px;\n"
+"	background-color: qlineargradient(spread:pad, x1:0.454545, y1:0, x2:0.454545, y2:1, stop:0 rgba(253, 253, 253, 255), stop:1 rgba(239, 239, 239, 255));\n"
+"\n"
+"	\n"
+"}\n"
+"\n"
+"QPushButton:hover {\n"
+"    background: qlineargradient(spread:pad, x1:0.454545, y1:0, x2:0.454545, y2:1, stop:0 rgba(254, 254, 254, 255), stop:1 rgba(248, 248, 248, 255));\n"
+"}")
 
-        self.gridLayout_2.addWidget(self.saveButton, 9, 0, 1, 1)
+        self.gridLayout_2.addWidget(self.saveButton, 15, 0, 1, 1)
 
         self.csvFileRadioButton = QRadioButton(self.tab)
         self.fileTOMIBtnGroup.addButton(self.csvFileRadioButton)
@@ -185,15 +326,34 @@ class Ui_MainWindow(object):
 
         self.gridLayout_2.addWidget(self.label_2, 0, 0, 1, 1)
 
-        self.importFileBtn = QPushButton(self.tab)
-        self.importFileBtn.setObjectName(u"importFileBtn")
+        self.line = QFrame(self.tab)
+        self.line.setObjectName(u"line")
+        self.line.setFrameShape(QFrame.HLine)
+        self.line.setFrameShadow(QFrame.Sunken)
 
-        self.gridLayout_2.addWidget(self.importFileBtn, 2, 0, 1, 1)
+        self.gridLayout_2.addWidget(self.line, 11, 0, 1, 1)
 
-        self.plotTOMIBtn_2 = QPushButton(self.tab)
-        self.plotTOMIBtn_2.setObjectName(u"plotTOMIBtn_2")
+        self.exportDataButton = QPushButton(self.tab)
+        self.exportDataButton.setObjectName(u"exportDataButton")
+        self.exportDataButton.setStyleSheet(u"QPushButton {\n"
+"	border-radius: 5px;\n"
+"	border: 1px solid #ababab;\n"
+"	height: 20px;\n"
+"	background-color: qlineargradient(spread:pad, x1:0.454545, y1:0, x2:0.454545, y2:1, stop:0 rgba(253, 253, 253, 255), stop:1 rgba(239, 239, 239, 255));\n"
+"\n"
+"	\n"
+"}\n"
+"\n"
+"QPushButton:hover {\n"
+"    background: qlineargradient(spread:pad, x1:0.454545, y1:0, x2:0.454545, y2:1, stop:0 rgba(254, 254, 254, 255), stop:1 rgba(248, 248, 248, 255));\n"
+"}")
 
-        self.gridLayout_2.addWidget(self.plotTOMIBtn_2, 7, 0, 1, 1)
+        self.gridLayout_2.addWidget(self.exportDataButton, 14, 0, 1, 1)
+
+        self.mesaRotativaInput = QLineEdit(self.tab)
+        self.mesaRotativaInput.setObjectName(u"mesaRotativaInput")
+
+        self.gridLayout_2.addWidget(self.mesaRotativaInput, 9, 0, 1, 1)
 
 
         self.verticalLayout_3.addLayout(self.gridLayout_2)
@@ -300,15 +460,23 @@ class Ui_MainWindow(object):
         self.panButton.setText(QCoreApplication.translate("MainWindow", u"Movimentar", None))
         self.editButton.setText(QCoreApplication.translate("MainWindow", u"Editar", None))
         self.plotTOMIBtn.setText(QCoreApplication.translate("MainWindow", u"Plotar", None))
-        self.exportDataButton.setText(QCoreApplication.translate("MainWindow", u"Exportar Dados", None))
+        self.label.setText(QCoreApplication.translate("MainWindow", u"<html><head/><body><p align=\"center\"><span style=\" font-size:12pt;\">Nome da Forma\u00e7\u00e3o:</span></p></body></html>", None))
+        self.plotTOMIBtn_2.setText(QCoreApplication.translate("MainWindow", u"Plotar", None))
+        self.importFileBtn.setText(QCoreApplication.translate("MainWindow", u"Importar", None))
+        self.label_11.setText(QCoreApplication.translate("MainWindow", u"<html><head/><body><p align=\"center\"><span style=\" font-size:12pt;\">Mesa Rotativa:</span></p></body></html>", None))
         self.xlsxFileRadioButton.setText(QCoreApplication.translate("MainWindow", u".xlsx", None))
         self.saveButton.setText(QCoreApplication.translate("MainWindow", u"Salvar", None))
         self.csvFileRadioButton.setText(QCoreApplication.translate("MainWindow", u".csv", None))
         self.txtFileRadioButton.setText(QCoreApplication.translate("MainWindow", u".txt", None))
         self.label_3.setText(QCoreApplication.translate("MainWindow", u"Tipo de arquivo:", None))
         self.label_2.setText(QCoreApplication.translate("MainWindow", u"<html><head/><body><p align=\"center\">Arquivo:</p></body></html>", None))
-        self.importFileBtn.setText(QCoreApplication.translate("MainWindow", u"Importar", None))
-        self.plotTOMIBtn_2.setText(QCoreApplication.translate("MainWindow", u"Plotar", None))
+#if QT_CONFIG(tooltip)
+        self.exportDataButton.setToolTip(QCoreApplication.translate("MainWindow", u"Exportar o dado de TOMI Index", None))
+#endif // QT_CONFIG(tooltip)
+#if QT_CONFIG(statustip)
+        self.exportDataButton.setStatusTip(QCoreApplication.translate("MainWindow", u"Exportar o dado de TOMI Index. Lembre-se que o dado vai ser exportado utilizando '.' ao inv\u00e9s de ',' para delimitar o decimal.", None))
+#endif // QT_CONFIG(statustip)
+        self.exportDataButton.setText(QCoreApplication.translate("MainWindow", u"Exportar Dados", None))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab), QCoreApplication.translate("MainWindow", u"Importa\u00e7\u00e3o", None))
         self.label_10.setText(QCoreApplication.translate("MainWindow", u"<html><head/><body><p align=\"center\">Modelo de Interpola\u00e7\u00e3o:</p></body></html>", None))
         self.label_8.setText(QCoreApplication.translate("MainWindow", u"<html><head/><body><p align=\"center\">T\u00edtulo do plot:</p></body></html>", None))

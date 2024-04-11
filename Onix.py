@@ -169,27 +169,36 @@ class MainProgramWindow(QMainWindow, Ui_MainWindow):
 
         return amostra_probabilidade
 
+    def mesa_rotativa_conversion(self, mesaRotativaInput, profundidade): 
+        return mesaRotativaInput - profundidade
+        
+    
     def plot_tomi_index(self):
         self.figure.clear()
         self.lineColor = self.lineColorComboBox_2.currentText()
         self.Title = self.plotTitleInput_2.text()
+        self.mesa = self.mesaRotativaInput.text()
 
         dataframe = self.read_file()
         profundidade = dataframe.iloc[:,0]
+        
+        tvd = self.mesa_rotativa_conversion(int(self.mesa), profundidade)
 
         amostra_probabilidade = self.tomi_index_calculation()
         ax = self.canvas.figure.add_subplot(111)
-        ax.set_title(self.Title, fontsize=12, color='#212121')
-        ax.plot(amostra_probabilidade,
-                 profundidade,
-                 's-',
-                 color=self.lineColor,
-                 label='TOMI')
-        ax.invert_yaxis()
+        ax.set_title(self.Title, fontweight='bold', fontsize=14, color='#212121')
+        ax.plot(
+            amostra_probabilidade,
+            tvd,
+            's-',
+            color=self.lineColor,
+            label='TOMI'
+            )
+        # ax.invert_yaxis()
         ax.set_xlim(0,100)
         ax.set_xlabel("TOMI index (%)")
         ax.set_ylabel("Profundidade (m)")
-        plt.grid()
+        ax.grid()
         # self.canvas.figure.set_tight_layout(True)
         self.canvas.draw()
 
@@ -200,6 +209,8 @@ class MainProgramWindow(QMainWindow, Ui_MainWindow):
         d13C = dataframe.iloc[:,5]
         TOC_TN = dataframe.iloc[:,6]
         amostra_probabilidade = self.tomi_index_calculation()
+        
+        self.formationName = self.formationNameInput.text()
         
         # Create a new dataframe
         export_dataframe = pd.DataFrame({
@@ -212,11 +223,21 @@ class MainProgramWindow(QMainWindow, Ui_MainWindow):
         
         # Open a file dialog for the user to select the file name and location
         dialog = QFileDialog()
-        filename, _ = dialog.getSaveFileName(filter="CSV files (*.csv)")
+        filename, _ = dialog.getSaveFileName(filter="Excel files (*.xlsx)")
 
-        if filename:
+        if filename and self.formationName:
             # If a file name is selected, export the dataframe to a .csv file
-            export_dataframe.to_csv(filename, index=False)
+            export_dataframe.to_excel(filename, 
+                                      sheet_name=self.formationName, 
+                                      index=False)
+            QMessageBox.information(self, "Exportação de dados",
+                                    f"Os dados foram exportados com sucesso para {filename}")
+            QMessageBox.information(self, "Delimitação",
+                                    f"Lembre-se que os dados foram exportados com '.' ao invés de ','")
+        elif filename and self.formationName == '':
+            export_dataframe.to_excel(filename, 
+                                      sheet_name='Formação', 
+                                      index=False)
 
 def main():
     app = QApplication(sys.argv)
