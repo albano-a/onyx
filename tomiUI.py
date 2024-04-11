@@ -11,283 +11,281 @@
 from PySide6.QtCore import (QCoreApplication, QDate, QDateTime, QLocale,
     QMetaObject, QObject, QPoint, QRect,
     QSize, QTime, QUrl, Qt)
-from PySide6.QtGui import (QAction, QBrush, QColor, QConicalGradient,
-    QCursor, QFont, QFontDatabase, QGradient,
-    QIcon, QImage, QKeySequence, QLinearGradient,
-    QPainter, QPalette, QPixmap, QRadialGradient,
-    QTransform)
-from PySide6.QtWidgets import (QApplication, QButtonGroup, QComboBox, QFrame,
-    QGridLayout, QHBoxLayout, QLabel, QLineEdit,
+from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
+    QFont, QFontDatabase, QGradient, QIcon,
+    QImage, QKeySequence, QLinearGradient, QPainter,
+    QPalette, QPixmap, QRadialGradient, QTransform)
+from PySide6.QtWidgets import (QApplication, QButtonGroup, QComboBox, QDockWidget,
+    QFrame, QGridLayout, QLabel, QLineEdit,
     QMainWindow, QMenuBar, QPushButton, QRadioButton,
-    QSizePolicy, QStatusBar, QToolBox, QVBoxLayout,
+    QSizePolicy, QStatusBar, QTabWidget, QVBoxLayout,
     QWidget)
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         if not MainWindow.objectName():
             MainWindow.setObjectName(u"MainWindow")
-        MainWindow.resize(598, 860)
-        icon = QIcon()
-        icon.addFile(u"tomi_icon.png", QSize(), QIcon.Normal, QIcon.Off)
-        MainWindow.setWindowIcon(icon)
-        self.actionReset_Original_View = QAction(MainWindow)
-        self.actionReset_Original_View.setObjectName(u"actionReset_Original_View")
+        MainWindow.resize(936, 877)
         self.centralwidget = QWidget(MainWindow)
         self.centralwidget.setObjectName(u"centralwidget")
-        self.verticalLayout = QVBoxLayout(self.centralwidget)
-        self.verticalLayout.setObjectName(u"verticalLayout")
+        self.verticalLayout_4 = QVBoxLayout(self.centralwidget)
+        self.verticalLayout_4.setObjectName(u"verticalLayout_4")
         self.frame = QFrame(self.centralwidget)
         self.frame.setObjectName(u"frame")
-        self.frame.setMinimumSize(QSize(580, 200))
-        self.frame.setMaximumSize(QSize(16777215, 200))
-        self.frame.setFrameShape(QFrame.StyledPanel)
-        self.frame.setFrameShadow(QFrame.Raised)
-        self.verticalLayout_3 = QVBoxLayout(self.frame)
-        self.verticalLayout_3.setObjectName(u"verticalLayout_3")
-        self.label = QLabel(self.frame)
-        self.label.setObjectName(u"label")
-
-        self.verticalLayout_3.addWidget(self.label)
-
-        self.toolBox = QToolBox(self.frame)
-        self.toolBox.setObjectName(u"toolBox")
-        self.toolBox.setEnabled(True)
-        font = QFont()
-        font.setPointSize(10)
-        font.setBold(False)
-        font.setUnderline(False)
-        font.setStrikeOut(False)
-        self.toolBox.setFont(font)
-        self.toolBox.setStyleSheet(u"QToolBox {\n"
-"	border: None;\n"
-"	border-radius: 15px;\n"
-"}\n"
-"\n"
-"QToolBox::Tab {\n"
-"	border: 1px solid #d9d9d9;\n"
-"	background-color: #f7f7f7;\n"
-"	border-radius: 15px;\n"
-"}")
-        self.toolBox.setFrameShape(QFrame.Panel)
-        self.fileImportTool = QWidget()
-        self.fileImportTool.setObjectName(u"fileImportTool")
-        self.fileImportTool.setGeometry(QRect(0, 0, 560, 98))
-        self.horizontalLayout = QHBoxLayout(self.fileImportTool)
-        self.horizontalLayout.setObjectName(u"horizontalLayout")
-        self.gridLayout = QGridLayout()
-        self.gridLayout.setObjectName(u"gridLayout")
-        self.fileTOMIComboBox = QComboBox(self.fileImportTool)
-        self.fileTOMIComboBox.setObjectName(u"fileTOMIComboBox")
-        font1 = QFont()
-        font1.setPointSize(12)
-        self.fileTOMIComboBox.setFont(font1)
-
-        self.gridLayout.addWidget(self.fileTOMIComboBox, 0, 1, 1, 2)
-
-        self.importFileBtn = QPushButton(self.fileImportTool)
-        self.importFileBtn.setObjectName(u"importFileBtn")
-
-        self.gridLayout.addWidget(self.importFileBtn, 0, 3, 1, 1)
-
-        self.label_2 = QLabel(self.fileImportTool)
-        self.label_2.setObjectName(u"label_2")
-        self.label_2.setFont(font1)
-
-        self.gridLayout.addWidget(self.label_2, 0, 0, 1, 1, Qt.AlignRight)
-
-        self.label_3 = QLabel(self.fileImportTool)
-        self.label_3.setObjectName(u"label_3")
-        self.label_3.setFont(font1)
-
-        self.gridLayout.addWidget(self.label_3, 1, 0, 1, 1, Qt.AlignRight)
-
-        self.txtFileRadioButton = QRadioButton(self.fileImportTool)
-        self.fileTOMIBtnGroup = QButtonGroup(MainWindow)
-        self.fileTOMIBtnGroup.setObjectName(u"fileTOMIBtnGroup")
-        self.fileTOMIBtnGroup.addButton(self.txtFileRadioButton)
-        self.txtFileRadioButton.setObjectName(u"txtFileRadioButton")
-        self.txtFileRadioButton.setFont(font1)
-        icon1 = QIcon()
-        icon1.addFile(u"J:/Universidade/GIECAR/mpanicon/txt.png", QSize(), QIcon.Normal, QIcon.Off)
-        self.txtFileRadioButton.setIcon(icon1)
-        self.txtFileRadioButton.setIconSize(QSize(32, 32))
-
-        self.gridLayout.addWidget(self.txtFileRadioButton, 1, 2, 1, 1, Qt.AlignHCenter)
-
-        self.xlsxFileRadioButton = QRadioButton(self.fileImportTool)
-        self.fileTOMIBtnGroup.addButton(self.xlsxFileRadioButton)
-        self.xlsxFileRadioButton.setObjectName(u"xlsxFileRadioButton")
-        self.xlsxFileRadioButton.setEnabled(False)
-        self.xlsxFileRadioButton.setFont(font1)
-        icon2 = QIcon()
-        icon2.addFile(u"J:/Universidade/GIECAR/mpanicon/xlsx.png", QSize(), QIcon.Normal, QIcon.Off)
-        self.xlsxFileRadioButton.setIcon(icon2)
-        self.xlsxFileRadioButton.setIconSize(QSize(32, 32))
-
-        self.gridLayout.addWidget(self.xlsxFileRadioButton, 1, 3, 1, 1, Qt.AlignHCenter)
-
-        self.csvFileRadioButton = QRadioButton(self.fileImportTool)
-        self.fileTOMIBtnGroup.addButton(self.csvFileRadioButton)
-        self.csvFileRadioButton.setObjectName(u"csvFileRadioButton")
-        self.csvFileRadioButton.setSizeIncrement(QSize(0, 0))
-        self.csvFileRadioButton.setFont(font1)
-        icon3 = QIcon()
-        icon3.addFile(u"J:/Universidade/GIECAR/mpanicon/csv.png", QSize(), QIcon.Normal, QIcon.Off)
-        self.csvFileRadioButton.setIcon(icon3)
-        self.csvFileRadioButton.setIconSize(QSize(32, 32))
-
-        self.gridLayout.addWidget(self.csvFileRadioButton, 1, 1, 1, 1, Qt.AlignHCenter)
-
-
-        self.horizontalLayout.addLayout(self.gridLayout)
-
-        self.toolBox.addItem(self.fileImportTool, u"Importa\u00e7\u00e3o de arquivo")
-        self.plotConfigTool = QWidget()
-        self.plotConfigTool.setObjectName(u"plotConfigTool")
-        self.plotConfigTool.setGeometry(QRect(0, 0, 560, 98))
-        self.horizontalLayout_2 = QHBoxLayout(self.plotConfigTool)
-        self.horizontalLayout_2.setObjectName(u"horizontalLayout_2")
-        self.gridLayout_2 = QGridLayout()
-        self.gridLayout_2.setObjectName(u"gridLayout_2")
-        self.label_4 = QLabel(self.plotConfigTool)
-        self.label_4.setObjectName(u"label_4")
-        self.label_4.setFont(font1)
-
-        self.gridLayout_2.addWidget(self.label_4, 0, 0, 1, 1)
-
-        self.plotTitleInput = QLineEdit(self.plotConfigTool)
-        self.plotTitleInput.setObjectName(u"plotTitleInput")
-        self.plotTitleInput.setMinimumSize(QSize(0, 20))
-        self.plotTitleInput.setStyleSheet(u"QLineEdit {\n"
-"	border: 1px solid #d2d2d2;\n"
-"	background: #fdfdfd;\n"
-"}")
-
-        self.gridLayout_2.addWidget(self.plotTitleInput, 0, 1, 1, 4)
-
-        self.label_6 = QLabel(self.plotConfigTool)
-        self.label_6.setObjectName(u"label_6")
-        self.label_6.setFont(font1)
-
-        self.gridLayout_2.addWidget(self.label_6, 1, 0, 1, 1)
-
-        self.lineColorComboBox = QComboBox(self.plotConfigTool)
-        self.lineColorComboBox.setObjectName(u"lineColorComboBox")
-        self.lineColorComboBox.setSizeAdjustPolicy(QComboBox.AdjustToContentsOnFirstShow)
-
-        self.gridLayout_2.addWidget(self.lineColorComboBox, 1, 1, 1, 1)
-
-        self.label_5 = QLabel(self.plotConfigTool)
-        self.label_5.setObjectName(u"label_5")
-        self.label_5.setFont(font1)
-
-        self.gridLayout_2.addWidget(self.label_5, 1, 2, 1, 1)
-
-        self.lineTypeComboBox = QComboBox(self.plotConfigTool)
-        self.lineTypeComboBox.setObjectName(u"lineTypeComboBox")
-        self.lineTypeComboBox.setStyleSheet(u"QComboBox::item {\n"
-"	text-align: center;\n"
-"}")
-        self.lineTypeComboBox.setSizeAdjustPolicy(QComboBox.AdjustToContentsOnFirstShow)
-        self.lineTypeComboBox.setIconSize(QSize(24, 24))
-
-        self.gridLayout_2.addWidget(self.lineTypeComboBox, 1, 3, 1, 1)
-
-
-        self.horizontalLayout_2.addLayout(self.gridLayout_2)
-
-        self.toolBox.addItem(self.plotConfigTool, u"Configura\u00e7\u00f5es do plot")
-
-        self.verticalLayout_3.addWidget(self.toolBox)
-
-
-        self.verticalLayout.addWidget(self.frame)
-
-        self.plotTOMIBtn = QPushButton(self.centralwidget)
-        self.plotTOMIBtn.setObjectName(u"plotTOMIBtn")
-        self.plotTOMIBtn.setMinimumSize(QSize(250, 0))
-        font2 = QFont()
-        font2.setPointSize(12)
-        font2.setBold(True)
-        self.plotTOMIBtn.setFont(font2)
-
-        self.verticalLayout.addWidget(self.plotTOMIBtn, 0, Qt.AlignHCenter)
-
-        self.frame_3 = QFrame(self.centralwidget)
-        self.frame_3.setObjectName(u"frame_3")
-        self.verticalLayout_2 = QVBoxLayout(self.frame_3)
-        self.verticalLayout_2.setSpacing(0)
-        self.verticalLayout_2.setObjectName(u"verticalLayout_2")
-        self.verticalLayout_2.setContentsMargins(0, 0, 0, 0)
-        self.widget = QWidget(self.frame_3)
-        self.widget.setObjectName(u"widget")
         sizePolicy = QSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Expanding)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.widget.sizePolicy().hasHeightForWidth())
-        self.widget.setSizePolicy(sizePolicy)
-        self.widget.setStyleSheet(u"QWidget {\n"
+        sizePolicy.setHeightForWidth(self.frame.sizePolicy().hasHeightForWidth())
+        self.frame.setSizePolicy(sizePolicy)
+        self.frame.setMinimumSize(QSize(0, 0))
+        self.frame.setStyleSheet(u"QFrame {\n"
+"	border: 1px solid #212121;\n"
 "	background-color: #fff;\n"
-"	border: 1px solid #212121\n"
 "}")
+        self.frame.setFrameShape(QFrame.StyledPanel)
+        self.frame.setFrameShadow(QFrame.Raised)
 
-        self.verticalLayout_2.addWidget(self.widget)
+        self.verticalLayout_4.addWidget(self.frame)
 
-
-        self.verticalLayout.addWidget(self.frame_3)
-
-        self.horizontalLayout_3 = QHBoxLayout()
-        self.horizontalLayout_3.setObjectName(u"horizontalLayout_3")
+        self.gridLayout = QGridLayout()
+        self.gridLayout.setObjectName(u"gridLayout")
         self.homeButton = QPushButton(self.centralwidget)
         self.homeButton.setObjectName(u"homeButton")
 
-        self.horizontalLayout_3.addWidget(self.homeButton)
+        self.gridLayout.addWidget(self.homeButton, 0, 0, 1, 1)
 
         self.backButton = QPushButton(self.centralwidget)
         self.backButton.setObjectName(u"backButton")
 
-        self.horizontalLayout_3.addWidget(self.backButton)
+        self.gridLayout.addWidget(self.backButton, 0, 1, 1, 1)
 
         self.forwardButton = QPushButton(self.centralwidget)
         self.forwardButton.setObjectName(u"forwardButton")
 
-        self.horizontalLayout_3.addWidget(self.forwardButton)
-
-        self.panButton = QPushButton(self.centralwidget)
-        self.panButton.setObjectName(u"panButton")
-
-        self.horizontalLayout_3.addWidget(self.panButton)
+        self.gridLayout.addWidget(self.forwardButton, 0, 2, 1, 1)
 
         self.zoomButton = QPushButton(self.centralwidget)
         self.zoomButton.setObjectName(u"zoomButton")
 
-        self.horizontalLayout_3.addWidget(self.zoomButton)
+        self.gridLayout.addWidget(self.zoomButton, 1, 0, 1, 1)
+
+        self.panButton = QPushButton(self.centralwidget)
+        self.panButton.setObjectName(u"panButton")
+
+        self.gridLayout.addWidget(self.panButton, 1, 1, 1, 1)
 
         self.editButton = QPushButton(self.centralwidget)
         self.editButton.setObjectName(u"editButton")
 
-        self.horizontalLayout_3.addWidget(self.editButton)
-
-        self.saveButton = QPushButton(self.centralwidget)
-        self.saveButton.setObjectName(u"saveButton")
-
-        self.horizontalLayout_3.addWidget(self.saveButton)
+        self.gridLayout.addWidget(self.editButton, 1, 2, 1, 1)
 
 
-        self.verticalLayout.addLayout(self.horizontalLayout_3)
+        self.verticalLayout_4.addLayout(self.gridLayout)
+
+        self.plotTOMIBtn = QPushButton(self.centralwidget)
+        self.plotTOMIBtn.setObjectName(u"plotTOMIBtn")
+        self.plotTOMIBtn.setMinimumSize(QSize(0, 0))
+        font = QFont()
+        font.setPointSize(12)
+        font.setBold(True)
+        self.plotTOMIBtn.setFont(font)
+
+        self.verticalLayout_4.addWidget(self.plotTOMIBtn)
 
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QMenuBar(MainWindow)
         self.menubar.setObjectName(u"menubar")
-        self.menubar.setGeometry(QRect(0, 0, 598, 21))
+        self.menubar.setGeometry(QRect(0, 0, 936, 21))
         MainWindow.setMenuBar(self.menubar)
         self.statusbar = QStatusBar(MainWindow)
         self.statusbar.setObjectName(u"statusbar")
         MainWindow.setStatusBar(self.statusbar)
+        self.dockWidget = QDockWidget(MainWindow)
+        self.dockWidget.setObjectName(u"dockWidget")
+        self.dockWidget.setAllowedAreas(Qt.LeftDockWidgetArea|Qt.RightDockWidgetArea)
+        self.dockWidgetContents = QWidget()
+        self.dockWidgetContents.setObjectName(u"dockWidgetContents")
+        self.verticalLayout_2 = QVBoxLayout(self.dockWidgetContents)
+        self.verticalLayout_2.setObjectName(u"verticalLayout_2")
+        self.verticalLayout = QVBoxLayout()
+        self.verticalLayout.setObjectName(u"verticalLayout")
+        self.tabWidget = QTabWidget(self.dockWidgetContents)
+        self.tabWidget.setObjectName(u"tabWidget")
+        self.tabWidget.setMinimumSize(QSize(220, 0))
+        self.tab = QWidget()
+        self.tab.setObjectName(u"tab")
+        self.verticalLayout_3 = QVBoxLayout(self.tab)
+        self.verticalLayout_3.setObjectName(u"verticalLayout_3")
+        self.gridLayout_2 = QGridLayout()
+        self.gridLayout_2.setObjectName(u"gridLayout_2")
+        self.exportDataButton = QPushButton(self.tab)
+        self.exportDataButton.setObjectName(u"exportDataButton")
+
+        self.gridLayout_2.addWidget(self.exportDataButton, 8, 0, 1, 1)
+
+        self.xlsxFileRadioButton = QRadioButton(self.tab)
+        self.fileTOMIBtnGroup = QButtonGroup(MainWindow)
+        self.fileTOMIBtnGroup.setObjectName(u"fileTOMIBtnGroup")
+        self.fileTOMIBtnGroup.addButton(self.xlsxFileRadioButton)
+        self.xlsxFileRadioButton.setObjectName(u"xlsxFileRadioButton")
+        self.xlsxFileRadioButton.setEnabled(False)
+        font1 = QFont()
+        font1.setPointSize(12)
+        self.xlsxFileRadioButton.setFont(font1)
+        icon = QIcon()
+        icon.addFile(u"J:/Universidade/GIECAR/mpanicon/xlsx.png", QSize(), QIcon.Normal, QIcon.Off)
+        self.xlsxFileRadioButton.setIcon(icon)
+        self.xlsxFileRadioButton.setIconSize(QSize(32, 32))
+
+        self.gridLayout_2.addWidget(self.xlsxFileRadioButton, 6, 0, 1, 1, Qt.AlignHCenter)
+
+        self.saveButton = QPushButton(self.tab)
+        self.saveButton.setObjectName(u"saveButton")
+
+        self.gridLayout_2.addWidget(self.saveButton, 9, 0, 1, 1)
+
+        self.csvFileRadioButton = QRadioButton(self.tab)
+        self.fileTOMIBtnGroup.addButton(self.csvFileRadioButton)
+        self.csvFileRadioButton.setObjectName(u"csvFileRadioButton")
+        self.csvFileRadioButton.setSizeIncrement(QSize(0, 0))
+        self.csvFileRadioButton.setFont(font1)
+        icon1 = QIcon()
+        icon1.addFile(u"J:/Universidade/GIECAR/mpanicon/csv.png", QSize(), QIcon.Normal, QIcon.Off)
+        self.csvFileRadioButton.setIcon(icon1)
+        self.csvFileRadioButton.setIconSize(QSize(32, 32))
+
+        self.gridLayout_2.addWidget(self.csvFileRadioButton, 4, 0, 1, 1, Qt.AlignHCenter)
+
+        self.txtFileRadioButton = QRadioButton(self.tab)
+        self.fileTOMIBtnGroup.addButton(self.txtFileRadioButton)
+        self.txtFileRadioButton.setObjectName(u"txtFileRadioButton")
+        self.txtFileRadioButton.setFont(font1)
+        icon2 = QIcon()
+        icon2.addFile(u"J:/Universidade/GIECAR/mpanicon/txt.png", QSize(), QIcon.Normal, QIcon.Off)
+        self.txtFileRadioButton.setIcon(icon2)
+        self.txtFileRadioButton.setIconSize(QSize(32, 32))
+
+        self.gridLayout_2.addWidget(self.txtFileRadioButton, 5, 0, 1, 1, Qt.AlignHCenter)
+
+        self.label_3 = QLabel(self.tab)
+        self.label_3.setObjectName(u"label_3")
+        self.label_3.setFont(font1)
+
+        self.gridLayout_2.addWidget(self.label_3, 3, 0, 1, 1, Qt.AlignHCenter)
+
+        self.fileTOMIComboBox = QComboBox(self.tab)
+        self.fileTOMIComboBox.setObjectName(u"fileTOMIComboBox")
+        self.fileTOMIComboBox.setFont(font1)
+
+        self.gridLayout_2.addWidget(self.fileTOMIComboBox, 1, 0, 1, 1)
+
+        self.label_2 = QLabel(self.tab)
+        self.label_2.setObjectName(u"label_2")
+        self.label_2.setFont(font1)
+
+        self.gridLayout_2.addWidget(self.label_2, 0, 0, 1, 1)
+
+        self.importFileBtn = QPushButton(self.tab)
+        self.importFileBtn.setObjectName(u"importFileBtn")
+
+        self.gridLayout_2.addWidget(self.importFileBtn, 2, 0, 1, 1)
+
+        self.plotTOMIBtn_2 = QPushButton(self.tab)
+        self.plotTOMIBtn_2.setObjectName(u"plotTOMIBtn_2")
+
+        self.gridLayout_2.addWidget(self.plotTOMIBtn_2, 7, 0, 1, 1)
+
+
+        self.verticalLayout_3.addLayout(self.gridLayout_2)
+
+        self.frame_2 = QFrame(self.tab)
+        self.frame_2.setObjectName(u"frame_2")
+        sizePolicy1 = QSizePolicy(QSizePolicy.Policy.Preferred, QSizePolicy.Policy.Expanding)
+        sizePolicy1.setHorizontalStretch(0)
+        sizePolicy1.setVerticalStretch(0)
+        sizePolicy1.setHeightForWidth(self.frame_2.sizePolicy().hasHeightForWidth())
+        self.frame_2.setSizePolicy(sizePolicy1)
+        self.frame_2.setFrameShape(QFrame.StyledPanel)
+        self.frame_2.setFrameShadow(QFrame.Raised)
+
+        self.verticalLayout_3.addWidget(self.frame_2)
+
+        self.tabWidget.addTab(self.tab, "")
+        self.tab_2 = QWidget()
+        self.tab_2.setObjectName(u"tab_2")
+        self.verticalLayout_5 = QVBoxLayout(self.tab_2)
+        self.verticalLayout_5.setObjectName(u"verticalLayout_5")
+        self.gridLayout_5 = QGridLayout()
+        self.gridLayout_5.setObjectName(u"gridLayout_5")
+        self.label_10 = QLabel(self.tab_2)
+        self.label_10.setObjectName(u"label_10")
+        self.label_10.setFont(font1)
+
+        self.gridLayout_5.addWidget(self.label_10, 4, 0, 1, 3)
+
+        self.plotTitleInput_2 = QLineEdit(self.tab_2)
+        self.plotTitleInput_2.setObjectName(u"plotTitleInput_2")
+        self.plotTitleInput_2.setMinimumSize(QSize(0, 20))
+        self.plotTitleInput_2.setStyleSheet(u"QLineEdit {\n"
+"	border: 1px solid #d2d2d2;\n"
+"	background: #fdfdfd;\n"
+"}")
+
+        self.gridLayout_5.addWidget(self.plotTitleInput_2, 1, 0, 1, 3)
+
+        self.krigingInterpolationModel = QComboBox(self.tab_2)
+        self.krigingInterpolationModel.setObjectName(u"krigingInterpolationModel")
+        self.krigingInterpolationModel.setStyleSheet(u"QComboBox::item {\n"
+"	text-align: center;\n"
+"}")
+        self.krigingInterpolationModel.setSizeAdjustPolicy(QComboBox.AdjustToContentsOnFirstShow)
+        self.krigingInterpolationModel.setIconSize(QSize(24, 24))
+
+        self.gridLayout_5.addWidget(self.krigingInterpolationModel, 5, 0, 1, 3)
+
+        self.label_8 = QLabel(self.tab_2)
+        self.label_8.setObjectName(u"label_8")
+        self.label_8.setFont(font1)
+
+        self.gridLayout_5.addWidget(self.label_8, 0, 0, 1, 3)
+
+        self.lineColorComboBox_2 = QComboBox(self.tab_2)
+        self.lineColorComboBox_2.setObjectName(u"lineColorComboBox_2")
+        self.lineColorComboBox_2.setSizeAdjustPolicy(QComboBox.AdjustToContentsOnFirstShow)
+
+        self.gridLayout_5.addWidget(self.lineColorComboBox_2, 3, 0, 1, 3)
+
+        self.label_9 = QLabel(self.tab_2)
+        self.label_9.setObjectName(u"label_9")
+        self.label_9.setFont(font1)
+
+        self.gridLayout_5.addWidget(self.label_9, 2, 0, 1, 3)
+
+
+        self.verticalLayout_5.addLayout(self.gridLayout_5)
+
+        self.frame_3 = QFrame(self.tab_2)
+        self.frame_3.setObjectName(u"frame_3")
+        sizePolicy1.setHeightForWidth(self.frame_3.sizePolicy().hasHeightForWidth())
+        self.frame_3.setSizePolicy(sizePolicy1)
+        self.frame_3.setFrameShape(QFrame.StyledPanel)
+        self.frame_3.setFrameShadow(QFrame.Raised)
+
+        self.verticalLayout_5.addWidget(self.frame_3)
+
+        self.tabWidget.addTab(self.tab_2, "")
+
+        self.verticalLayout.addWidget(self.tabWidget)
+
+
+        self.verticalLayout_2.addLayout(self.verticalLayout)
+
+        self.dockWidget.setWidget(self.dockWidgetContents)
+        MainWindow.addDockWidget(Qt.LeftDockWidgetArea, self.dockWidget)
 
         self.retranslateUi(MainWindow)
 
-        self.toolBox.setCurrentIndex(0)
+        self.tabWidget.setCurrentIndex(0)
 
 
         QMetaObject.connectSlotsByName(MainWindow)
@@ -295,26 +293,26 @@ class Ui_MainWindow(object):
 
     def retranslateUi(self, MainWindow):
         MainWindow.setWindowTitle(QCoreApplication.translate("MainWindow", u"MainWindow", None))
-        self.actionReset_Original_View.setText(QCoreApplication.translate("MainWindow", u"Reset Original View", None))
-        self.label.setText(QCoreApplication.translate("MainWindow", u"<html><head/><body><p align=\"center\"><span style=\" font-size:10pt; font-weight:600;\">TOMI Index</span></p></body></html>", None))
-        self.importFileBtn.setText(QCoreApplication.translate("MainWindow", u"Importar", None))
-        self.label_2.setText(QCoreApplication.translate("MainWindow", u"Arquivo:", None))
-        self.label_3.setText(QCoreApplication.translate("MainWindow", u"Tipo de arquivo:", None))
-        self.txtFileRadioButton.setText(QCoreApplication.translate("MainWindow", u".txt", None))
-        self.xlsxFileRadioButton.setText(QCoreApplication.translate("MainWindow", u".xlsx", None))
-        self.csvFileRadioButton.setText(QCoreApplication.translate("MainWindow", u".csv", None))
-        self.toolBox.setItemText(self.toolBox.indexOf(self.fileImportTool), QCoreApplication.translate("MainWindow", u"Importa\u00e7\u00e3o de arquivo", None))
-        self.label_4.setText(QCoreApplication.translate("MainWindow", u"T\u00edtulo do plot:", None))
-        self.label_6.setText(QCoreApplication.translate("MainWindow", u"Cor da linha:", None))
-        self.label_5.setText(QCoreApplication.translate("MainWindow", u"Tipo de linha:", None))
-        self.toolBox.setItemText(self.toolBox.indexOf(self.plotConfigTool), QCoreApplication.translate("MainWindow", u"Configura\u00e7\u00f5es do plot", None))
-        self.plotTOMIBtn.setText(QCoreApplication.translate("MainWindow", u"Plotar", None))
         self.homeButton.setText(QCoreApplication.translate("MainWindow", u"Reset", None))
         self.backButton.setText(QCoreApplication.translate("MainWindow", u"Voltar", None))
         self.forwardButton.setText(QCoreApplication.translate("MainWindow", u"Avan\u00e7ar", None))
-        self.panButton.setText(QCoreApplication.translate("MainWindow", u"Movimentar", None))
         self.zoomButton.setText(QCoreApplication.translate("MainWindow", u"Zoom", None))
+        self.panButton.setText(QCoreApplication.translate("MainWindow", u"Movimentar", None))
         self.editButton.setText(QCoreApplication.translate("MainWindow", u"Editar", None))
+        self.plotTOMIBtn.setText(QCoreApplication.translate("MainWindow", u"Plotar", None))
+        self.exportDataButton.setText(QCoreApplication.translate("MainWindow", u"Exportar Dados", None))
+        self.xlsxFileRadioButton.setText(QCoreApplication.translate("MainWindow", u".xlsx", None))
         self.saveButton.setText(QCoreApplication.translate("MainWindow", u"Salvar", None))
+        self.csvFileRadioButton.setText(QCoreApplication.translate("MainWindow", u".csv", None))
+        self.txtFileRadioButton.setText(QCoreApplication.translate("MainWindow", u".txt", None))
+        self.label_3.setText(QCoreApplication.translate("MainWindow", u"Tipo de arquivo:", None))
+        self.label_2.setText(QCoreApplication.translate("MainWindow", u"<html><head/><body><p align=\"center\">Arquivo:</p></body></html>", None))
+        self.importFileBtn.setText(QCoreApplication.translate("MainWindow", u"Importar", None))
+        self.plotTOMIBtn_2.setText(QCoreApplication.translate("MainWindow", u"Plotar", None))
+        self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab), QCoreApplication.translate("MainWindow", u"Importa\u00e7\u00e3o", None))
+        self.label_10.setText(QCoreApplication.translate("MainWindow", u"<html><head/><body><p align=\"center\">Modelo de Interpola\u00e7\u00e3o:</p></body></html>", None))
+        self.label_8.setText(QCoreApplication.translate("MainWindow", u"<html><head/><body><p align=\"center\">T\u00edtulo do plot:</p></body></html>", None))
+        self.label_9.setText(QCoreApplication.translate("MainWindow", u"<html><head/><body><p align=\"center\">Cor da linha:</p></body></html>", None))
+        self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_2), QCoreApplication.translate("MainWindow", u"Config. plot", None))
     # retranslateUi
 

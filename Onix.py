@@ -16,7 +16,12 @@ import os
 import sys
 import shutil
 
-plt.style.use(['ggplot'])
+# TODO: Adicionar a opção de importar arquivos .xlsx
+# TODO: Adicionar a opção de exportar o gráfico e os dados do TOMI Index
+# TODO: Adicionar opção de modelo de interpolação
+# TODO: Importar o dado de xlsx e ser possível escolher a página da planilha
+
+# plt.style.use(['ggplot'])
 
 class MainProgramWindow(QMainWindow, Ui_MainWindow):
     def __init__(self):
@@ -29,7 +34,7 @@ class MainProgramWindow(QMainWindow, Ui_MainWindow):
         self.canvas = FigureCanvasQTAgg(self.figure)
 
         # Create a QVBoxLayout within your QWidget
-        self.plotLayout = QVBoxLayout(self.widget)
+        self.plotLayout = QVBoxLayout(self.frame)
         self.plotLayout.setContentsMargins(0, 0, 0, 0)  # Remove margins
         self.plotLayout.setSpacing(0)  # Remove spacing
         # Add the FigureCanvasQTAgg object to the layout
@@ -55,21 +60,17 @@ class MainProgramWindow(QMainWindow, Ui_MainWindow):
         self.files = os.listdir('uploads')
         self.fileTOMIComboBox.addItems(self.files)
 
-        self.lineColorComboBox.addItems(['blue', 'red', 'yellow',
+        self.lineColorComboBox_2.addItems(['blue', 'red', 'yellow',
                                          'green', 'purple', 'orange',
                                          'pink', 'black', 'white'])
+        
+        self.krigingInterpolationModel.addItems(['linear', 'gaussian'])
 
-        self.lineTypeComboBox.addItem("")
-        self.lineTypeComboBox.addItem("")
-        self.lineTypeComboBox.addItem("")
-        self.lineTypeComboBox.addItem("")
-
-        self.lineTypeComboBox.setItemData(0, QIcon("./mpanicon/square.png"), Qt.DecorationRole)
-        self.lineTypeComboBox.setItemData(1, QIcon("./mpanicon/circle.png"), Qt.DecorationRole)
-        self.lineTypeComboBox.setItemData(2, QIcon("./mpanicon/dashed.png"), Qt.DecorationRole)
-        self.lineTypeComboBox.setItemData(3, QIcon("./mpanicon/dashedCircle.png"), Qt.DecorationRole)
+        
 
         self.plotTOMIBtn.clicked.connect(self.plot_tomi_index)
+        self.plotTOMIBtn_2.clicked.connect(self.plot_tomi_index)
+        self.exportDataButton.clicked.connect(self.export_data)
 
         self.show()
 
@@ -144,6 +145,7 @@ class MainProgramWindow(QMainWindow, Ui_MainWindow):
         profundidade = dataframe.iloc[:,0]
         d13C = dataframe.iloc[:,5]
         TOC_TN = dataframe.iloc[:,6]
+        self.krigingModel = self.krigingInterpolationModel.currentText()
 
         # do artigo
         art_toc_tn = np.array([4,4,4,4,10,10,10,10,100,100,100,100])
@@ -159,7 +161,7 @@ class MainProgramWindow(QMainWindow, Ui_MainWindow):
         art_c13corg_grid = np.linspace(-34, -10, 241)  # Valores de δ13Corg para a grade
 
         # Kriging
-        OK = OrdinaryKriging(art_toc_tn, art_c13corg, probabilidade, variogram_model='linear')
+        OK = OrdinaryKriging(art_toc_tn, art_c13corg, probabilidade, variogram_model=self.krigingModel)
         z, ss = OK.execute('grid', art_toc_tn_grid, art_c13corg_grid)
 
         # Aplicação dos dados das suas amostras na grade interpolada
@@ -169,8 +171,8 @@ class MainProgramWindow(QMainWindow, Ui_MainWindow):
 
     def plot_tomi_index(self):
         self.figure.clear()
-        self.lineType = self.lineColorComboBox.currentText()
-        self.Title = self.plotTitleInput.text()
+        self.lineColor = self.lineColorComboBox_2.currentText()
+        self.Title = self.plotTitleInput_2.text()
 
         dataframe = self.read_file()
         profundidade = dataframe.iloc[:,0]
@@ -181,6 +183,7 @@ class MainProgramWindow(QMainWindow, Ui_MainWindow):
         ax.plot(amostra_probabilidade,
                  profundidade,
                  's-',
+                 color=self.lineColor,
                  label='TOMI')
         ax.invert_yaxis()
         ax.set_xlim(0,100)
@@ -189,6 +192,31 @@ class MainProgramWindow(QMainWindow, Ui_MainWindow):
         plt.grid()
         # self.canvas.figure.set_tight_layout(True)
         self.canvas.draw()
+
+    def export_data(self):
+        dataframe = self.read_file()
+        profundidade = dataframe.iloc[:,0]
+        tvdss = dataframe.iloc[:,1]
+        d13C = dataframe.iloc[:,5]
+        TOC_TN = dataframe.iloc[:,6]
+        amostra_probabilidade = self.tomi_index_calculation()
+        
+        # Create a new dataframe
+        export_dataframe = pd.DataFrame({
+            'Prof': profundidade,
+            'TVDSS': tvdss,
+            'd13C': d13C,
+            'TOC_TN': TOC_TN,
+            'TOMI Index': amostra_probabilidade
+        })
+        
+        # Open a file dialog for the user to select the file name and location
+        dialog = QFileDialog()
+        filename, _ = dialog.getSaveFileName(filter="CSV files (*.csv)")
+
+        if filename:
+            # If a file name is selected, export the dataframe to a .csv file
+            export_dataframe.to_csv(filename, index=False)
 
 def main():
     app = QApplication(sys.argv)
