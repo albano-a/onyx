@@ -15,12 +15,8 @@ from pykrige.ok import OrdinaryKriging
 import os
 import sys
 import shutil
+from openpyxl import Workbook
 from qt_material import apply_stylesheet
-
-# TODO: Adicionar a opção de importar arquivos .xlsx
-# TODO: Adicionar a opção de exportar o gráfico e os dados do TOMI Index
-# TODO: Adicionar opção de modelo de interpolação
-# TODO: Importar o dado de xlsx e ser possível escolher a página da planilha
 
 # plt.style.use(['ggplot'])
 
@@ -40,6 +36,13 @@ class MainProgramWindow(QMainWindow, Ui_MainWindow):
         self.plotLayout.setSpacing(0)  # Remove spacing
         # Add the FigureCanvasQTAgg object to the layout
         self.plotLayout.addWidget(self.canvas)
+        
+        # Hiding the excel sheet options
+        self.xlsxFileRadioButton.toggled.connect(self.show_xlsx_options)
+        # Initializing the state
+        self.sheetTabLabel.hide()
+        self.sheetPageInput.hide()
+
 
         # Set the layout of the parent widget
         self.matplotlib_toolbar = NavigationToolbar2QT(self.canvas)
@@ -119,6 +122,14 @@ class MainProgramWindow(QMainWindow, Ui_MainWindow):
     def redraw_plot(self):
         self.plot_tomi_index()
 
+    def show_xlsx_options(self):
+        if self.xlsxFileRadioButton.isChecked():
+            self.sheetTabLabel.show()
+            self.sheetPageInput.show()
+        else:
+            self.sheetTabLabel.hide()
+            self.sheetPageInput.hide()
+
     def read_file(self):
         dataframe = pd.DataFrame()
 
@@ -134,8 +145,7 @@ class MainProgramWindow(QMainWindow, Ui_MainWindow):
             try:
                 dataframe = pd.read_csv(f'uploads/{self.selected_file}',
                                         skiprows=0,
-                                        delimiter=';',
-                                        usecols=(0,1,2,3,4,5,6))
+                                        delimiter=';')
                 return dataframe
             except Exception as e:
                 QMessageBox.critical(self, "Error", f"Um erro ocorreu: {e}")
@@ -143,25 +153,31 @@ class MainProgramWindow(QMainWindow, Ui_MainWindow):
 
         elif self.file_type_button_text == '.txt':
             try:
-                dataframe = pd.read_csv(f'uploads/{self.selected_file}',
+                dataframe = pd.read_txt(f'uploads/{self.selected_file}',
                                         skiprows=0,
-                                        delimiter=';',
-                                        usecols=(0,1,2,3,4,5,6))
+                                        delimiter=';')
                 return dataframe
             except Exception as e:
                 QMessageBox.critical(self, "Error", f"Um erro ocorreu: {e}")
                 return pd.DataFrame()
 
         elif self.file_type_button_text == '.xlsx':
-            pass
-
+            sheetTab = self.sheetPageInput.text()
+            try:
+                dataframe = pd.read_excel(f'uploads/{self.selected_file}',
+                                          skiprows=0,
+                                          decimal=',',
+                                          sheet_name=sheetTab)
+                return dataframe
+            except Exception as e:
+                QMessageBox.critical(self, "Error", f"Um erro ocorreu: {e}")
+                return pd.DataFrame()
         else:
             QMessageBox.warning(self, "Error", "Selecione o tipo de arquivo")
             return pd.DataFrame()
 
     def tomi_index_calculation(self):
         dataframe = self.read_file()
-        profundidade = dataframe.iloc[:,0]
         d13C = dataframe.iloc[:,5]
         TOC_TN = dataframe.iloc[:,6]
         self.krigingModel = self.krigingInterpolationModel.currentText()
@@ -264,19 +280,21 @@ class MainProgramWindow(QMainWindow, Ui_MainWindow):
         dialog = QFileDialog()
         filename, _ = dialog.getSaveFileName(filter="Excel files (*.xlsx)")
 
-        if filename and self.formationName:
+        self.formationCheck = [self.formationName if self.formationName else 'Formação']
+
+        if filename:
             # If a file name is selected, export the dataframe to a .csv file
+            for col in export_dataframe.columns:
+                if export_dataframe[col].dtype == 'float64':
+                    export_dataframe[col] = export_dataframe[col].apply(lambda x: str(x).replace('.', ','))
+            
             export_dataframe.to_excel(filename, 
-                                      sheet_name=self.formationName, 
+                                      sheet_name=self.formationCheck[0], 
                                       index=False)
             QMessageBox.information(self, "Exportação de dados",
                                     f"Os dados foram exportados com sucesso para {filename}")
             QMessageBox.information(self, "Delimitação",
                                     f"Lembre-se que os dados foram exportados com '.' ao invés de ','")
-        elif filename and self.formationName == '':
-            export_dataframe.to_excel(filename, 
-                                      sheet_name='Formação', 
-                                      index=False)
 
 def main():
     app = QApplication(sys.argv)

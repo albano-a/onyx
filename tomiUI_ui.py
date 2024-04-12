@@ -26,7 +26,7 @@ class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         if not MainWindow.objectName():
             MainWindow.setObjectName(u"MainWindow")
-        MainWindow.resize(936, 877)
+        MainWindow.resize(1101, 888)
         icon = QIcon()
         icon.addFile(u"tomi_icon.png", QSize(), QIcon.Normal, QIcon.Off)
         MainWindow.setWindowIcon(icon)
@@ -103,7 +103,7 @@ class Ui_MainWindow(object):
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QMenuBar(MainWindow)
         self.menubar.setObjectName(u"menubar")
-        self.menubar.setGeometry(QRect(0, 0, 936, 21))
+        self.menubar.setGeometry(QRect(0, 0, 1101, 21))
         self.menuView = QMenu(self.menubar)
         self.menuView.setObjectName(u"menuView")
         MainWindow.setMenuBar(self.menubar)
@@ -147,18 +147,6 @@ class Ui_MainWindow(object):
 
         self.importFileBtn = QPushButton(self.groupBox)
         self.importFileBtn.setObjectName(u"importFileBtn")
-        self.importFileBtn.setStyleSheet(u"QPushButton {\n"
-"	border-radius: 5px;\n"
-"	border: 1px solid #ababab;\n"
-"	height: 20px;\n"
-"	background-color: qlineargradient(spread:pad, x1:0.454545, y1:0, x2:0.454545, y2:1, stop:0 rgba(253, 253, 253, 255), stop:1 rgba(239, 239, 239, 255));\n"
-"\n"
-"	\n"
-"}\n"
-"\n"
-"QPushButton:hover {\n"
-"    background: qlineargradient(spread:pad, x1:0.454545, y1:0, x2:0.454545, y2:1, stop:0 rgba(254, 254, 254, 255), stop:1 rgba(248, 248, 248, 255));\n"
-"}")
 
         self.verticalLayout_3.addWidget(self.importFileBtn)
 
@@ -205,6 +193,19 @@ class Ui_MainWindow(object):
 
         self.verticalLayout_3.addWidget(self.xlsxFileRadioButton, 0, Qt.AlignHCenter)
 
+        self.sheetTabLabel = QLabel(self.groupBox)
+        self.sheetTabLabel.setObjectName(u"sheetTabLabel")
+
+        self.verticalLayout_3.addWidget(self.sheetTabLabel)
+
+        self.sheetPageInput = QLineEdit(self.groupBox)
+        self.sheetPageInput.setObjectName(u"sheetPageInput")
+        self.sheetPageInput.setStyleSheet(u"QLineEdit { \n"
+"	text-align: center; \n"
+"}")
+
+        self.verticalLayout_3.addWidget(self.sheetPageInput)
+
         self.label_11 = QLabel(self.groupBox)
         self.label_11.setObjectName(u"label_11")
 
@@ -217,18 +218,6 @@ class Ui_MainWindow(object):
 
         self.plotTOMIBtn_2 = QPushButton(self.groupBox)
         self.plotTOMIBtn_2.setObjectName(u"plotTOMIBtn_2")
-        self.plotTOMIBtn_2.setStyleSheet(u"QPushButton {\n"
-"	border-radius: 5px;\n"
-"	border: 1px solid #ababab;\n"
-"	height: 20px;\n"
-"	background-color: qlineargradient(spread:pad, x1:0.454545, y1:0, x2:0.454545, y2:1, stop:0 rgba(253, 253, 253, 255), stop:1 rgba(239, 239, 239, 255));\n"
-"\n"
-"	\n"
-"}\n"
-"\n"
-"QPushButton:hover {\n"
-"    background: qlineargradient(spread:pad, x1:0.454545, y1:0, x2:0.454545, y2:1, stop:0 rgba(254, 254, 254, 255), stop:1 rgba(248, 248, 248, 255));\n"
-"}")
 
         self.verticalLayout_3.addWidget(self.plotTOMIBtn_2)
 
@@ -386,6 +375,7 @@ class Ui_MainWindow(object):
         self.csvFileRadioButton.setText(QCoreApplication.translate("MainWindow", u".csv", None))
         self.txtFileRadioButton.setText(QCoreApplication.translate("MainWindow", u".txt", None))
         self.xlsxFileRadioButton.setText(QCoreApplication.translate("MainWindow", u".xlsx", None))
+        self.sheetTabLabel.setText(QCoreApplication.translate("MainWindow", u"<html><head/><body><p align=\"center\"><span style=\" font-size:12pt;\">Aba da Planilha</span></p></body></html>", None))
         self.label_11.setText(QCoreApplication.translate("MainWindow", u"<html><head/><body><p align=\"center\"><span style=\" font-size:12pt;\">Mesa Rotativa:</span></p></body></html>", None))
         self.plotTOMIBtn_2.setText(QCoreApplication.translate("MainWindow", u"Plotar", None))
         self.groupBox_2.setTitle(QCoreApplication.translate("MainWindow", u"Exportar", None))

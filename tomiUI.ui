@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>936</width>
-    <height>877</height>
+    <width>1101</width>
+    <height>888</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -120,7 +120,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>936</width>
+     <width>1101</width>
      <height>21</height>
     </rect>
    </property>
@@ -196,20 +196,6 @@
               </item>
               <item>
                <widget class="QPushButton" name="importFileBtn">
-                <property name="styleSheet">
-                 <string notr="true">QPushButton {
-	border-radius: 5px;
-	border: 1px solid #ababab;
-	height: 20px;
-	background-color: qlineargradient(spread:pad, x1:0.454545, y1:0, x2:0.454545, y2:1, stop:0 rgba(253, 253, 253, 255), stop:1 rgba(239, 239, 239, 255));
-
-	
-}
-
-QPushButton:hover {
-    background: qlineargradient(spread:pad, x1:0.454545, y1:0, x2:0.454545, y2:1, stop:0 rgba(254, 254, 254, 255), stop:1 rgba(248, 248, 248, 255));
-}</string>
-                </property>
                 <property name="text">
                  <string>Importar</string>
                 </property>
@@ -312,6 +298,22 @@ QPushButton:hover {
                </widget>
               </item>
               <item>
+               <widget class="QLabel" name="sheetTabLabel">
+                <property name="text">
+                 <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:12pt;&quot;&gt;Aba da Planilha&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QLineEdit" name="sheetPageInput">
+                <property name="styleSheet">
+                 <string notr="true">QLineEdit { 
+	text-align: center; 
+}</string>
+                </property>
+               </widget>
+              </item>
+              <item>
                <widget class="QLabel" name="label_11">
                 <property name="text">
                  <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:12pt;&quot;&gt;Mesa Rotativa:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
@@ -323,20 +325,6 @@ QPushButton:hover {
               </item>
               <item>
                <widget class="QPushButton" name="plotTOMIBtn_2">
-                <property name="styleSheet">
-                 <string notr="true">QPushButton {
-	border-radius: 5px;
-	border: 1px solid #ababab;
-	height: 20px;
-	background-color: qlineargradient(spread:pad, x1:0.454545, y1:0, x2:0.454545, y2:1, stop:0 rgba(253, 253, 253, 255), stop:1 rgba(239, 239, 239, 255));
-
-	
-}
-
-QPushButton:hover {
-    background: qlineargradient(spread:pad, x1:0.454545, y1:0, x2:0.454545, y2:1, stop:0 rgba(254, 254, 254, 255), stop:1 rgba(248, 248, 248, 255));
-}</string>
-                </property>
                 <property name="text">
                  <string>Plotar</string>
                 </property>
