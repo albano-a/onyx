@@ -1,9 +1,9 @@
 from PySide6.QtWidgets import (QFileDialog, QApplication, QPushButton,
                                QToolBar, QVBoxLayout, QMainWindow,
-                               QMessageBox, QGraphicsScene, QGraphicsView)
+                               QMessageBox)
 from PySide6.QtUiTools import QUiLoader
-from PySide6.QtCore import QFile, QRectF
-from PySide6.QtGui import QIcon, Qt
+from PySide6.QtCore import QFile, QRectF, QUrl
+from PySide6.QtGui import QIcon, Qt, QDesktopServices
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -15,6 +15,7 @@ from pykrige.ok import OrdinaryKriging
 import os
 import sys
 import shutil
+from qt_material import apply_stylesheet
 
 # TODO: Adicionar a opção de importar arquivos .xlsx
 # TODO: Adicionar a opção de exportar o gráfico e os dados do TOMI Index
@@ -51,6 +52,11 @@ class MainProgramWindow(QMainWindow, Ui_MainWindow):
         self.zoomButton.clicked.connect(self.matplotlib_toolbar.zoom)
         self.editButton.clicked.connect(self.matplotlib_toolbar.edit_parameters)
         self.saveButton.clicked.connect(self.matplotlib_toolbar.save_figure)
+        
+        self.actionSidebar.triggered.connect(self.toggle_sidebar)
+        self.actionDocumentation.triggered.connect(
+            lambda: self.open_documentation("https://github.com/albano-a/onyx-tomi-index-plotter")
+        )
 
         self.selected_file = None
 
@@ -60,19 +66,32 @@ class MainProgramWindow(QMainWindow, Ui_MainWindow):
         self.files = os.listdir('uploads')
         self.fileTOMIComboBox.addItems(self.files)
 
-        self.lineColorComboBox_2.addItems(['blue', 'red', 'yellow',
-                                         'green', 'purple', 'orange',
-                                         'pink', 'black', 'white'])
+        chooseColors = ['Blue', 'Red', 'Yellow', 
+                        'Green', 'Purple', 'Orange', 
+                        'Pink', 'Black', 'White']
         
-        self.krigingInterpolationModel.addItems(['linear', 'gaussian'])
-
+        self.lineColorComboBox_2.addItems(chooseColors)
         
+        interpolationModels = ['Linear', 'Gaussian', 'Power',
+                               'Spherical', 'Exponential', 'Hole-Effect']
+        
+        self.krigingInterpolationModel.addItems(interpolationModels)
 
         self.plotTOMIBtn.clicked.connect(self.plot_tomi_index)
         self.plotTOMIBtn_2.clicked.connect(self.plot_tomi_index)
         self.exportDataButton.clicked.connect(self.export_data)
 
+        
         self.show()
+
+    def open_documentation(self, url):
+        QDesktopServices.openUrl(QUrl(url))
+
+    def toggle_sidebar(self):
+        if self.dockWidget.isVisible():
+            self.dockWidget.hide()
+        else:
+            self.dockWidget.show()
 
     def import_file(self):
         file_dialog = QFileDialog()
@@ -146,7 +165,8 @@ class MainProgramWindow(QMainWindow, Ui_MainWindow):
         d13C = dataframe.iloc[:,5]
         TOC_TN = dataframe.iloc[:,6]
         self.krigingModel = self.krigingInterpolationModel.currentText()
-
+        self.krigingModel = self.krigingModel.lower()
+        
         # do artigo
         art_toc_tn = np.array([4,4,4,4,10,10,10,10,100,100,100,100])
         art_c13corg = np.array([-10,-22,-25,-34,-10,-22,-25,-34,-10,-22,-25,-34])
@@ -161,11 +181,16 @@ class MainProgramWindow(QMainWindow, Ui_MainWindow):
         art_c13corg_grid = np.linspace(-34, -10, 241)  # Valores de δ13Corg para a grade
 
         # Kriging
-        OK = OrdinaryKriging(art_toc_tn, art_c13corg, probabilidade, variogram_model=self.krigingModel)
+        OK = OrdinaryKriging(art_toc_tn, art_c13corg, 
+                             probabilidade, variogram_model=self.krigingModel)
         z, ss = OK.execute('grid', art_toc_tn_grid, art_c13corg_grid)
 
         # Aplicação dos dados das suas amostras na grade interpolada
-        amostra_probabilidade, ss = OK.execute('points', amostra_art_toc_tn, amostra_art_c13corg)
+        amostra_probabilidade, ss = OK.execute(
+            'points', 
+            amostra_art_toc_tn, 
+            amostra_art_c13corg
+        )
 
         return amostra_probabilidade
 
@@ -176,13 +201,25 @@ class MainProgramWindow(QMainWindow, Ui_MainWindow):
     def plot_tomi_index(self):
         self.figure.clear()
         self.lineColor = self.lineColorComboBox_2.currentText()
+        self.lineColor = self.lineColor.lower()
         self.Title = self.plotTitleInput_2.text()
         self.mesa = self.mesaRotativaInput.text()
 
+        invert_axis=False
+
         dataframe = self.read_file()
         profundidade = dataframe.iloc[:,0]
-        
-        tvd = self.mesa_rotativa_conversion(int(self.mesa), profundidade)
+               
+        if self.mesa == '':
+            tvd = profundidade
+            invert_axis = True
+        else:
+            try:
+                invert_axis=False
+                tvd = self.mesa_rotativa_conversion(int(self.mesa), profundidade)
+            except ValueError:
+                QMessageBox.critical(self, "Error", "Digite um valor numérico para a mesa rotativa.")
+                return
 
         amostra_probabilidade = self.tomi_index_calculation()
         ax = self.canvas.figure.add_subplot(111)
@@ -194,6 +231,8 @@ class MainProgramWindow(QMainWindow, Ui_MainWindow):
             color=self.lineColor,
             label='TOMI'
             )
+        if invert_axis:
+            ax.invert_yaxis()
         # ax.invert_yaxis()
         ax.set_xlim(0,100)
         ax.set_xlabel("TOMI index (%)")

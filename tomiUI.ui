@@ -13,8 +13,9 @@
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
-  <property name="styleSheet">
-   <string notr="true"/>
+  <property name="windowIcon">
+   <iconset>
+    <normaloff>tomi_icon.png</normaloff>tomi_icon.png</iconset>
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QVBoxLayout" name="verticalLayout_4">
@@ -50,20 +51,6 @@
      <layout class="QGridLayout" name="gridLayout">
       <item row="0" column="0">
        <widget class="QPushButton" name="homeButton">
-        <property name="styleSheet">
-         <string notr="true">QPushButton {
-	border-radius: 5px;
-	border: 1px solid #ababab;
-	height: 20px;
-	background-color: qlineargradient(spread:pad, x1:0.454545, y1:0, x2:0.454545, y2:1, stop:0 rgba(253, 253, 253, 255), stop:1 rgba(239, 239, 239, 255));
-
-	
-}
-
-QPushButton:hover {
-    background: qlineargradient(spread:pad, x1:0.454545, y1:0, x2:0.454545, y2:1, stop:0 rgba(254, 254, 254, 255), stop:1 rgba(248, 248, 248, 255));
-}</string>
-        </property>
         <property name="text">
          <string>Reset</string>
         </property>
@@ -71,20 +58,6 @@ QPushButton:hover {
       </item>
       <item row="0" column="1">
        <widget class="QPushButton" name="backButton">
-        <property name="styleSheet">
-         <string notr="true">QPushButton {
-	border-radius: 5px;
-	border: 1px solid #ababab;
-	height: 20px;
-	background-color: qlineargradient(spread:pad, x1:0.454545, y1:0, x2:0.454545, y2:1, stop:0 rgba(253, 253, 253, 255), stop:1 rgba(239, 239, 239, 255));
-
-	
-}
-
-QPushButton:hover {
-    background: qlineargradient(spread:pad, x1:0.454545, y1:0, x2:0.454545, y2:1, stop:0 rgba(254, 254, 254, 255), stop:1 rgba(248, 248, 248, 255));
-}</string>
-        </property>
         <property name="text">
          <string>Voltar</string>
         </property>
@@ -92,20 +65,6 @@ QPushButton:hover {
       </item>
       <item row="0" column="2">
        <widget class="QPushButton" name="forwardButton">
-        <property name="styleSheet">
-         <string notr="true">QPushButton {
-	border-radius: 5px;
-	border: 1px solid #ababab;
-	height: 20px;
-	background-color: qlineargradient(spread:pad, x1:0.454545, y1:0, x2:0.454545, y2:1, stop:0 rgba(253, 253, 253, 255), stop:1 rgba(239, 239, 239, 255));
-
-	
-}
-
-QPushButton:hover {
-    background: qlineargradient(spread:pad, x1:0.454545, y1:0, x2:0.454545, y2:1, stop:0 rgba(254, 254, 254, 255), stop:1 rgba(248, 248, 248, 255));
-}</string>
-        </property>
         <property name="text">
          <string>Avançar</string>
         </property>
@@ -113,20 +72,6 @@ QPushButton:hover {
       </item>
       <item row="1" column="0">
        <widget class="QPushButton" name="zoomButton">
-        <property name="styleSheet">
-         <string notr="true">QPushButton {
-	border-radius: 5px;
-	border: 1px solid #ababab;
-	height: 20px;
-	background-color: qlineargradient(spread:pad, x1:0.454545, y1:0, x2:0.454545, y2:1, stop:0 rgba(253, 253, 253, 255), stop:1 rgba(239, 239, 239, 255));
-
-	
-}
-
-QPushButton:hover {
-    background: qlineargradient(spread:pad, x1:0.454545, y1:0, x2:0.454545, y2:1, stop:0 rgba(254, 254, 254, 255), stop:1 rgba(248, 248, 248, 255));
-}</string>
-        </property>
         <property name="text">
          <string>Zoom</string>
         </property>
@@ -134,20 +79,6 @@ QPushButton:hover {
       </item>
       <item row="1" column="1">
        <widget class="QPushButton" name="panButton">
-        <property name="styleSheet">
-         <string notr="true">QPushButton {
-	border-radius: 5px;
-	border: 1px solid #ababab;
-	height: 20px;
-	background-color: qlineargradient(spread:pad, x1:0.454545, y1:0, x2:0.454545, y2:1, stop:0 rgba(253, 253, 253, 255), stop:1 rgba(239, 239, 239, 255));
-
-	
-}
-
-QPushButton:hover {
-    background: qlineargradient(spread:pad, x1:0.454545, y1:0, x2:0.454545, y2:1, stop:0 rgba(254, 254, 254, 255), stop:1 rgba(248, 248, 248, 255));
-}</string>
-        </property>
         <property name="text">
          <string>Movimentar</string>
         </property>
@@ -155,20 +86,6 @@ QPushButton:hover {
       </item>
       <item row="1" column="2">
        <widget class="QPushButton" name="editButton">
-        <property name="styleSheet">
-         <string notr="true">QPushButton {
-	border-radius: 5px;
-	border: 1px solid #ababab;
-	height: 20px;
-	background-color: qlineargradient(spread:pad, x1:0.454545, y1:0, x2:0.454545, y2:1, stop:0 rgba(253, 253, 253, 255), stop:1 rgba(239, 239, 239, 255));
-
-	
-}
-
-QPushButton:hover {
-    background: qlineargradient(spread:pad, x1:0.454545, y1:0, x2:0.454545, y2:1, stop:0 rgba(254, 254, 254, 255), stop:1 rgba(248, 248, 248, 255));
-}</string>
-        </property>
         <property name="text">
          <string>Editar</string>
         </property>
@@ -191,20 +108,6 @@ QPushButton:hover {
         <bold>true</bold>
        </font>
       </property>
-      <property name="styleSheet">
-       <string notr="true">QPushButton {
-	border-radius: 5px;
-	border: 1px solid #ababab;
-	height: 20px;
-	background-color: qlineargradient(spread:pad, x1:0.454545, y1:0, x2:0.454545, y2:1, stop:0 rgba(253, 253, 253, 255), stop:1 rgba(239, 239, 239, 255));
-
-	
-}
-
-QPushButton:hover {
-    background: qlineargradient(spread:pad, x1:0.454545, y1:0, x2:0.454545, y2:1, stop:0 rgba(254, 254, 254, 255), stop:1 rgba(248, 248, 248, 255));
-}</string>
-      </property>
       <property name="text">
        <string>Plotar</string>
       </property>
@@ -221,11 +124,22 @@ QPushButton:hover {
      <height>21</height>
     </rect>
    </property>
+   <widget class="QMenu" name="menuView">
+    <property name="title">
+     <string>View</string>
+    </property>
+    <addaction name="actionSidebar"/>
+    <addaction name="actionDocumentation"/>
+   </widget>
+   <addaction name="menuView"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
   <widget class="QDockWidget" name="dockWidget">
    <property name="allowedAreas">
     <set>Qt::LeftDockWidgetArea|Qt::RightDockWidgetArea</set>
+   </property>
+   <property name="windowTitle">
+    <string/>
    </property>
    <attribute name="dockWidgetArea">
     <number>1</number>
@@ -245,27 +159,45 @@ QPushButton:hover {
          <property name="currentIndex">
           <number>0</number>
          </property>
+         <property name="movable">
+          <bool>false</bool>
+         </property>
          <widget class="QWidget" name="tab">
           <attribute name="title">
            <string>Importação</string>
           </attribute>
-          <layout class="QVBoxLayout" name="verticalLayout_3">
+          <layout class="QVBoxLayout" name="verticalLayout_7">
            <item>
-            <layout class="QGridLayout" name="gridLayout_2">
-             <item row="13" column="0">
-              <widget class="QLineEdit" name="formationNameInput"/>
-             </item>
-             <item row="12" column="0">
-              <widget class="QLabel" name="label">
-               <property name="text">
-                <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:12pt;&quot;&gt;Nome da Formação:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-               </property>
-              </widget>
-             </item>
-             <item row="10" column="0">
-              <widget class="QPushButton" name="plotTOMIBtn_2">
-               <property name="styleSheet">
-                <string notr="true">QPushButton {
+            <widget class="QGroupBox" name="groupBox">
+             <property name="title">
+              <string>Arquivo</string>
+             </property>
+             <layout class="QVBoxLayout" name="verticalLayout_3">
+              <item>
+               <widget class="QLabel" name="label_2">
+                <property name="font">
+                 <font>
+                  <pointsize>12</pointsize>
+                 </font>
+                </property>
+                <property name="text">
+                 <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;Arquivo:&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QComboBox" name="fileTOMIComboBox">
+                <property name="font">
+                 <font>
+                  <pointsize>12</pointsize>
+                 </font>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QPushButton" name="importFileBtn">
+                <property name="styleSheet">
+                 <string notr="true">QPushButton {
 	border-radius: 5px;
 	border: 1px solid #ababab;
 	height: 20px;
@@ -277,16 +209,122 @@ QPushButton:hover {
 QPushButton:hover {
     background: qlineargradient(spread:pad, x1:0.454545, y1:0, x2:0.454545, y2:1, stop:0 rgba(254, 254, 254, 255), stop:1 rgba(248, 248, 248, 255));
 }</string>
-               </property>
-               <property name="text">
-                <string>Plotar</string>
-               </property>
-              </widget>
-             </item>
-             <item row="2" column="0">
-              <widget class="QPushButton" name="importFileBtn">
-               <property name="styleSheet">
-                <string notr="true">QPushButton {
+                </property>
+                <property name="text">
+                 <string>Importar</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QLabel" name="label_3">
+                <property name="font">
+                 <font>
+                  <pointsize>12</pointsize>
+                 </font>
+                </property>
+                <property name="text">
+                 <string>Tipo de arquivo:</string>
+                </property>
+               </widget>
+              </item>
+              <item alignment="Qt::AlignHCenter">
+               <widget class="QRadioButton" name="csvFileRadioButton">
+                <property name="sizeIncrement">
+                 <size>
+                  <width>0</width>
+                  <height>0</height>
+                 </size>
+                </property>
+                <property name="font">
+                 <font>
+                  <pointsize>12</pointsize>
+                 </font>
+                </property>
+                <property name="text">
+                 <string>.csv</string>
+                </property>
+                <property name="icon">
+                 <iconset>
+                  <normaloff>J:/Universidade/GIECAR/mpanicon/csv.png</normaloff>J:/Universidade/GIECAR/mpanicon/csv.png</iconset>
+                </property>
+                <property name="iconSize">
+                 <size>
+                  <width>32</width>
+                  <height>32</height>
+                 </size>
+                </property>
+                <attribute name="buttonGroup">
+                 <string notr="true">fileTOMIBtnGroup</string>
+                </attribute>
+               </widget>
+              </item>
+              <item alignment="Qt::AlignHCenter">
+               <widget class="QRadioButton" name="txtFileRadioButton">
+                <property name="font">
+                 <font>
+                  <pointsize>12</pointsize>
+                 </font>
+                </property>
+                <property name="text">
+                 <string>.txt</string>
+                </property>
+                <property name="icon">
+                 <iconset>
+                  <normaloff>J:/Universidade/GIECAR/mpanicon/txt.png</normaloff>J:/Universidade/GIECAR/mpanicon/txt.png</iconset>
+                </property>
+                <property name="iconSize">
+                 <size>
+                  <width>32</width>
+                  <height>32</height>
+                 </size>
+                </property>
+                <attribute name="buttonGroup">
+                 <string notr="true">fileTOMIBtnGroup</string>
+                </attribute>
+               </widget>
+              </item>
+              <item alignment="Qt::AlignHCenter">
+               <widget class="QRadioButton" name="xlsxFileRadioButton">
+                <property name="enabled">
+                 <bool>true</bool>
+                </property>
+                <property name="font">
+                 <font>
+                  <pointsize>12</pointsize>
+                 </font>
+                </property>
+                <property name="text">
+                 <string>.xlsx</string>
+                </property>
+                <property name="icon">
+                 <iconset>
+                  <normaloff>J:/Universidade/GIECAR/mpanicon/xlsx.png</normaloff>J:/Universidade/GIECAR/mpanicon/xlsx.png</iconset>
+                </property>
+                <property name="iconSize">
+                 <size>
+                  <width>32</width>
+                  <height>32</height>
+                 </size>
+                </property>
+                <attribute name="buttonGroup">
+                 <string notr="true">fileTOMIBtnGroup</string>
+                </attribute>
+               </widget>
+              </item>
+              <item>
+               <widget class="QLabel" name="label_11">
+                <property name="text">
+                 <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:12pt;&quot;&gt;Mesa Rotativa:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QLineEdit" name="mesaRotativaInput"/>
+              </item>
+              <item>
+               <widget class="QPushButton" name="plotTOMIBtn_2">
+                <property name="styleSheet">
+                 <string notr="true">QPushButton {
 	border-radius: 5px;
 	border: 1px solid #ababab;
 	height: 20px;
@@ -298,195 +336,60 @@ QPushButton:hover {
 QPushButton:hover {
     background: qlineargradient(spread:pad, x1:0.454545, y1:0, x2:0.454545, y2:1, stop:0 rgba(254, 254, 254, 255), stop:1 rgba(248, 248, 248, 255));
 }</string>
-               </property>
-               <property name="text">
-                <string>Importar</string>
-               </property>
-              </widget>
-             </item>
-             <item row="8" column="0">
-              <widget class="QLabel" name="label_11">
-               <property name="text">
-                <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:12pt;&quot;&gt;Mesa Rotativa:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-               </property>
-              </widget>
-             </item>
-             <item row="6" column="0" alignment="Qt::AlignHCenter">
-              <widget class="QRadioButton" name="xlsxFileRadioButton">
-               <property name="enabled">
-                <bool>false</bool>
-               </property>
-               <property name="font">
-                <font>
-                 <pointsize>12</pointsize>
-                </font>
-               </property>
-               <property name="text">
-                <string>.xlsx</string>
-               </property>
-               <property name="icon">
-                <iconset>
-                 <normaloff>J:/Universidade/GIECAR/mpanicon/xlsx.png</normaloff>J:/Universidade/GIECAR/mpanicon/xlsx.png</iconset>
-               </property>
-               <property name="iconSize">
-                <size>
-                 <width>32</width>
-                 <height>32</height>
-                </size>
-               </property>
-               <attribute name="buttonGroup">
-                <string notr="true">fileTOMIBtnGroup</string>
-               </attribute>
-              </widget>
-             </item>
-             <item row="15" column="0">
-              <widget class="QPushButton" name="saveButton">
-               <property name="styleSheet">
-                <string notr="true">QPushButton {
-	border-radius: 5px;
-	border: 1px solid #ababab;
-	height: 20px;
-	background-color: qlineargradient(spread:pad, x1:0.454545, y1:0, x2:0.454545, y2:1, stop:0 rgba(253, 253, 253, 255), stop:1 rgba(239, 239, 239, 255));
-
-	
-}
-
-QPushButton:hover {
-    background: qlineargradient(spread:pad, x1:0.454545, y1:0, x2:0.454545, y2:1, stop:0 rgba(254, 254, 254, 255), stop:1 rgba(248, 248, 248, 255));
-}</string>
-               </property>
-               <property name="text">
-                <string>Salvar</string>
-               </property>
-              </widget>
-             </item>
-             <item row="4" column="0" alignment="Qt::AlignHCenter">
-              <widget class="QRadioButton" name="csvFileRadioButton">
-               <property name="sizeIncrement">
-                <size>
-                 <width>0</width>
-                 <height>0</height>
-                </size>
-               </property>
-               <property name="font">
-                <font>
-                 <pointsize>12</pointsize>
-                </font>
-               </property>
-               <property name="text">
-                <string>.csv</string>
-               </property>
-               <property name="icon">
-                <iconset>
-                 <normaloff>J:/Universidade/GIECAR/mpanicon/csv.png</normaloff>J:/Universidade/GIECAR/mpanicon/csv.png</iconset>
-               </property>
-               <property name="iconSize">
-                <size>
-                 <width>32</width>
-                 <height>32</height>
-                </size>
-               </property>
-               <attribute name="buttonGroup">
-                <string notr="true">fileTOMIBtnGroup</string>
-               </attribute>
-              </widget>
-             </item>
-             <item row="5" column="0" alignment="Qt::AlignHCenter">
-              <widget class="QRadioButton" name="txtFileRadioButton">
-               <property name="font">
-                <font>
-                 <pointsize>12</pointsize>
-                </font>
-               </property>
-               <property name="text">
-                <string>.txt</string>
-               </property>
-               <property name="icon">
-                <iconset>
-                 <normaloff>J:/Universidade/GIECAR/mpanicon/txt.png</normaloff>J:/Universidade/GIECAR/mpanicon/txt.png</iconset>
-               </property>
-               <property name="iconSize">
-                <size>
-                 <width>32</width>
-                 <height>32</height>
-                </size>
-               </property>
-               <attribute name="buttonGroup">
-                <string notr="true">fileTOMIBtnGroup</string>
-               </attribute>
-              </widget>
-             </item>
-             <item row="3" column="0" alignment="Qt::AlignHCenter">
-              <widget class="QLabel" name="label_3">
-               <property name="font">
-                <font>
-                 <pointsize>12</pointsize>
-                </font>
-               </property>
-               <property name="text">
-                <string>Tipo de arquivo:</string>
-               </property>
-              </widget>
-             </item>
-             <item row="1" column="0">
-              <widget class="QComboBox" name="fileTOMIComboBox">
-               <property name="font">
-                <font>
-                 <pointsize>12</pointsize>
-                </font>
-               </property>
-              </widget>
-             </item>
-             <item row="0" column="0">
-              <widget class="QLabel" name="label_2">
-               <property name="font">
-                <font>
-                 <pointsize>12</pointsize>
-                </font>
-               </property>
-               <property name="text">
-                <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;Arquivo:&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-               </property>
-              </widget>
-             </item>
-             <item row="11" column="0">
-              <widget class="Line" name="line">
-               <property name="orientation">
-                <enum>Qt::Horizontal</enum>
-               </property>
-              </widget>
-             </item>
-             <item row="14" column="0">
-              <widget class="QPushButton" name="exportDataButton">
-               <property name="toolTip">
-                <string>Exportar o dado de TOMI Index</string>
-               </property>
-               <property name="statusTip">
-                <string>Exportar o dado de TOMI Index. Lembre-se que o dado vai ser exportado utilizando '.' ao invés de ',' para delimitar o decimal.</string>
-               </property>
-               <property name="styleSheet">
-                <string notr="true">QPushButton {
-	border-radius: 5px;
-	border: 1px solid #ababab;
-	height: 20px;
-	background-color: qlineargradient(spread:pad, x1:0.454545, y1:0, x2:0.454545, y2:1, stop:0 rgba(253, 253, 253, 255), stop:1 rgba(239, 239, 239, 255));
-
-	
-}
-
-QPushButton:hover {
-    background: qlineargradient(spread:pad, x1:0.454545, y1:0, x2:0.454545, y2:1, stop:0 rgba(254, 254, 254, 255), stop:1 rgba(248, 248, 248, 255));
-}</string>
-               </property>
-               <property name="text">
-                <string>Exportar Dados</string>
-               </property>
-              </widget>
-             </item>
-             <item row="9" column="0">
-              <widget class="QLineEdit" name="mesaRotativaInput"/>
-             </item>
-            </layout>
+                </property>
+                <property name="text">
+                 <string>Plotar</string>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </widget>
+           </item>
+           <item>
+            <widget class="Line" name="line">
+             <property name="orientation">
+              <enum>Qt::Horizontal</enum>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QGroupBox" name="groupBox_2">
+             <property name="title">
+              <string>Exportar</string>
+             </property>
+             <layout class="QVBoxLayout" name="verticalLayout_6">
+              <item>
+               <widget class="QLabel" name="label">
+                <property name="text">
+                 <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:12pt;&quot;&gt;Nome da Formação:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QLineEdit" name="formationNameInput"/>
+              </item>
+              <item>
+               <widget class="QPushButton" name="exportDataButton">
+                <property name="toolTip">
+                 <string>Exportar o dado de TOMI Index</string>
+                </property>
+                <property name="statusTip">
+                 <string>Exportar o dado de TOMI Index. Lembre-se que o dado vai ser exportado utilizando '.' ao invés de ',' para delimitar o decimal.</string>
+                </property>
+                <property name="text">
+                 <string>Exportar Dados</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QPushButton" name="saveButton">
+                <property name="text">
+                 <string>Salvar Imagem</string>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </widget>
            </item>
            <item>
             <widget class="QFrame" name="frame_2">
@@ -617,6 +520,16 @@ QPushButton:hover {
     </layout>
    </widget>
   </widget>
+  <action name="actionSidebar">
+   <property name="text">
+    <string>Sidebar</string>
+   </property>
+  </action>
+  <action name="actionDocumentation">
+   <property name="text">
+    <string>Documentation</string>
+   </property>
+  </action>
  </widget>
  <resources/>
  <connections/>
