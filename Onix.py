@@ -16,7 +16,6 @@ import os
 import sys
 import shutil
 from openpyxl import Workbook
-from qt_material import apply_stylesheet
 
 # plt.style.use(['ggplot'])
 
