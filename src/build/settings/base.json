@@ -1,0 +1,7 @@
+{
+    "app_name": "Onyx",
+    "author": "Andre Albano",
+    "main_module": "src/main/python/Onyx.py",
+    "version": "1.5.3",
+    "hidden_imports": ["scipy.special._cdflib"]
+}

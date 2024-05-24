@@ -1,4 +1,4 @@
-from PySide6.QtWidgets import (
+from PyQt5.QtWidgets import (
     QFileDialog,
     QApplication,
     QPushButton,
@@ -7,9 +7,9 @@ from PySide6.QtWidgets import (
     QMainWindow,
     QMessageBox,
 )
-from PySide6.QtUiTools import QUiLoader
-from PySide6.QtCore import QFile, QRectF, QUrl
-from PySide6.QtGui import QIcon, Qt, QDesktopServices
+from fbs_runtime.application_context.PyQt5 import ApplicationContext
+from PyQt5.QtCore import QFile, QRectF, QUrl, Qt
+from PyQt5.QtGui import QIcon, QDesktopServices
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -32,6 +32,7 @@ class MainProgramWindow(QMainWindow, Ui_MainWindow):
 
         self.setupUi(self)
         self.setWindowTitle("TOMI Calculator")
+        # self.setWindowIcon(QIcon("../icons/Icon.ico"))
 
         self.figure = Figure(figsize=(5, 6))
         self.canvas = FigureCanvasQTAgg(self.figure)
@@ -71,10 +72,6 @@ class MainProgramWindow(QMainWindow, Ui_MainWindow):
         self.selected_file = None
 
         self.importFileBtn.clicked.connect(self.import_file)
-
-        # list of files in the uploads directory - Select the file option
-        self.files = os.listdir("uploads")
-        self.fileTOMIComboBox.addItems(self.files)
 
         chooseColors = [
             "Blue",
@@ -126,23 +123,8 @@ class MainProgramWindow(QMainWindow, Ui_MainWindow):
         )
         # import .csv and .txt files
 
-        if file_path:  # If a file was selected
-            # Get the base name of the file
-            file_name = os.path.basename(file_path)
-
-            # Copy the file to the ./uploads directory
-            shutil.copy(file_path, f"./uploads/{file_name}")
-
-            QMessageBox.information(
-                self,
-                "Arquivo importado\n",
-                f"Arquivo {file_name} importado com sucesso!",
-            )
-
-            # Update the combo box
-            self.fileTOMIComboBox.clear()
-            self.files = os.listdir("uploads")
-            self.fileTOMIComboBox.addItems(self.files)
+        if file_path:
+            self.fileNameInput.setText(file_path)
 
     def redraw_plot(self):
         self.plot_tomi_index()
@@ -164,13 +146,11 @@ class MainProgramWindow(QMainWindow, Ui_MainWindow):
             return pd.DataFrame()
 
         self.file_type_button_text = self.fileTOMIBtnGroup.checkedButton().text()
-        self.selected_file = self.fileTOMIComboBox.currentText()
+        self.selected_file = self.fileNameInput.text()
 
         if self.file_type_button_text == ".csv":
             try:
-                dataframe = pd.read_csv(
-                    f"uploads/{self.selected_file}", skiprows=0, delimiter=";"
-                )
+                dataframe = pd.read_csv(self.selected_file, skiprows=0, delimiter=";")
                 return dataframe
             except Exception as e:
                 QMessageBox.critical(self, "Error", f"Um erro ocorreu: {e}")
@@ -179,7 +159,7 @@ class MainProgramWindow(QMainWindow, Ui_MainWindow):
         elif self.file_type_button_text == ".txt":
             try:
                 dataframe = pd.read_txt(
-                    f"uploads/{self.selected_file}", skiprows=0, delimiter=";"
+                    self.selected_file, skiprows=0, delimiter=";"
                 )
                 return dataframe
             except Exception as e:
@@ -190,7 +170,7 @@ class MainProgramWindow(QMainWindow, Ui_MainWindow):
             sheetTab = self.sheetPageInput.text()
             try:
                 dataframe = pd.read_excel(
-                    f"uploads/{self.selected_file}",
+                    self.selected_file,
                     skiprows=0,
                     decimal=",",
                     sheet_name=sheetTab,
@@ -335,10 +315,10 @@ class MainProgramWindow(QMainWindow, Ui_MainWindow):
 
 
 def main():
-    app = QApplication(sys.argv)
+    appctx = ApplicationContext()
     window = MainProgramWindow()
     window.show()
-    sys.exit(app.exec())
+    sys.exit(appctx.app.exec())
 
 
 if __name__ == "__main__":

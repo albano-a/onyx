@@ -15,7 +15,7 @@
   </property>
   <property name="windowIcon">
    <iconset>
-    <normaloff>tomi_icon.png</normaloff>tomi_icon.png</iconset>
+    <normaloff>src/main/icons/Icon.ico</normaloff>src/main/icons/Icon.ico</iconset>
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QVBoxLayout" name="verticalLayout_4">
@@ -172,36 +172,15 @@
              <property name="title">
               <string>Arquivo</string>
              </property>
-             <layout class="QVBoxLayout" name="verticalLayout_3">
-              <item>
-               <widget class="QLabel" name="label_2">
-                <property name="font">
-                 <font>
-                  <pointsize>12</pointsize>
-                 </font>
-                </property>
+             <layout class="QGridLayout" name="gridLayout_2">
+              <item row="1" column="1">
+               <widget class="QToolButton" name="importFileBtn">
                 <property name="text">
-                 <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;Arquivo:&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                 <string>...</string>
                 </property>
                </widget>
               </item>
-              <item>
-               <widget class="QComboBox" name="fileTOMIComboBox">
-                <property name="font">
-                 <font>
-                  <pointsize>12</pointsize>
-                 </font>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QPushButton" name="importFileBtn">
-                <property name="text">
-                 <string>Importar</string>
-                </property>
-               </widget>
-              </item>
-              <item>
+              <item row="3" column="0" colspan="2" alignment="Qt::AlignHCenter">
                <widget class="QLabel" name="label_3">
                 <property name="font">
                  <font>
@@ -213,14 +192,8 @@
                 </property>
                </widget>
               </item>
-              <item alignment="Qt::AlignHCenter">
+              <item row="4" column="0" colspan="2" alignment="Qt::AlignHCenter">
                <widget class="QRadioButton" name="csvFileRadioButton">
-                <property name="sizeIncrement">
-                 <size>
-                  <width>0</width>
-                  <height>0</height>
-                 </size>
-                </property>
                 <property name="font">
                  <font>
                   <pointsize>12</pointsize>
@@ -229,22 +202,30 @@
                 <property name="text">
                  <string>.csv</string>
                 </property>
-                <property name="icon">
-                 <iconset>
-                  <normaloff>J:/Universidade/GIECAR/mpanicon/csv.png</normaloff>J:/Universidade/GIECAR/mpanicon/csv.png</iconset>
+                <attribute name="buttonGroup">
+                 <string notr="true">fileTOMIBtnGroup</string>
+                </attribute>
+               </widget>
+              </item>
+              <item row="6" column="0" colspan="2" alignment="Qt::AlignHCenter">
+               <widget class="QRadioButton" name="xlsxFileRadioButton">
+                <property name="font">
+                 <font>
+                  <pointsize>12</pointsize>
+                 </font>
                 </property>
-                <property name="iconSize">
-                 <size>
-                  <width>32</width>
-                  <height>32</height>
-                 </size>
+                <property name="text">
+                 <string>.xlsx</string>
                 </property>
                 <attribute name="buttonGroup">
                  <string notr="true">fileTOMIBtnGroup</string>
                 </attribute>
                </widget>
               </item>
-              <item alignment="Qt::AlignHCenter">
+              <item row="1" column="0">
+               <widget class="QLineEdit" name="fileNameInput"/>
+              </item>
+              <item row="5" column="0" colspan="2" alignment="Qt::AlignHCenter">
                <widget class="QRadioButton" name="txtFileRadioButton">
                 <property name="font">
                  <font>
@@ -254,57 +235,19 @@
                 <property name="text">
                  <string>.txt</string>
                 </property>
-                <property name="icon">
-                 <iconset>
-                  <normaloff>J:/Universidade/GIECAR/mpanicon/txt.png</normaloff>J:/Universidade/GIECAR/mpanicon/txt.png</iconset>
-                </property>
-                <property name="iconSize">
-                 <size>
-                  <width>32</width>
-                  <height>32</height>
-                 </size>
-                </property>
                 <attribute name="buttonGroup">
                  <string notr="true">fileTOMIBtnGroup</string>
                 </attribute>
                </widget>
               </item>
-              <item alignment="Qt::AlignHCenter">
-               <widget class="QRadioButton" name="xlsxFileRadioButton">
-                <property name="enabled">
-                 <bool>true</bool>
-                </property>
-                <property name="font">
-                 <font>
-                  <pointsize>12</pointsize>
-                 </font>
-                </property>
-                <property name="text">
-                 <string>.xlsx</string>
-                </property>
-                <property name="icon">
-                 <iconset>
-                  <normaloff>J:/Universidade/GIECAR/mpanicon/xlsx.png</normaloff>J:/Universidade/GIECAR/mpanicon/xlsx.png</iconset>
-                </property>
-                <property name="iconSize">
-                 <size>
-                  <width>32</width>
-                  <height>32</height>
-                 </size>
-                </property>
-                <attribute name="buttonGroup">
-                 <string notr="true">fileTOMIBtnGroup</string>
-                </attribute>
-               </widget>
-              </item>
-              <item>
+              <item row="7" column="0" colspan="2">
                <widget class="QLabel" name="sheetTabLabel">
                 <property name="text">
                  <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:12pt;&quot;&gt;Aba da Planilha&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                 </property>
                </widget>
               </item>
-              <item>
+              <item row="8" column="0" colspan="2">
                <widget class="QLineEdit" name="sheetPageInput">
                 <property name="styleSheet">
                  <string notr="true">QLineEdit { 
@@ -313,20 +256,32 @@
                 </property>
                </widget>
               </item>
-              <item>
+              <item row="9" column="0" colspan="2">
                <widget class="QLabel" name="label_11">
                 <property name="text">
                  <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:12pt;&quot;&gt;Mesa Rotativa:&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                 </property>
                </widget>
               </item>
-              <item>
+              <item row="10" column="0" colspan="2">
                <widget class="QLineEdit" name="mesaRotativaInput"/>
               </item>
-              <item>
+              <item row="11" column="0" colspan="2">
                <widget class="QPushButton" name="plotTOMIBtn_2">
                 <property name="text">
                  <string>Plotar</string>
+                </property>
+               </widget>
+              </item>
+              <item row="0" column="0" colspan="2">
+               <widget class="QLabel" name="label_2">
+                <property name="font">
+                 <font>
+                  <pointsize>12</pointsize>
+                 </font>
+                </property>
+                <property name="text">
+                 <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;Arquivo:&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                 </property>
                </widget>
               </item>
