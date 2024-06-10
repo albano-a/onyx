@@ -158,9 +158,7 @@ class MainProgramWindow(QMainWindow, Ui_MainWindow):
 
         elif self.file_type_button_text == ".txt":
             try:
-                dataframe = pd.read_txt(
-                    self.selected_file, skiprows=0, delimiter=";"
-                )
+                dataframe = pd.read_txt(self.selected_file, skiprows=0, delimiter=";")
                 return dataframe
             except Exception as e:
                 QMessageBox.critical(self, "Error", f"Um erro ocorreu: {e}")

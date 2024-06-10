@@ -16,23 +16,33 @@ class Ui_MainWindow(object):
         MainWindow.setObjectName("MainWindow")
         MainWindow.resize(1101, 888)
         icon = QtGui.QIcon()
-        icon.addPixmap(QtGui.QPixmap("c:\\Users\\Icarl\\Documents\\GitHub\\onyx-tomi-index-plotter\\src/main/icons/Icon.ico"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon.addPixmap(
+            QtGui.QPixmap(
+                "c:\\Users\\Icarl\\Documents\\GitHub\\onyx-tomi-index-plotter\\src/main/icons/Icon.ico"
+            ),
+            QtGui.QIcon.Normal,
+            QtGui.QIcon.Off,
+        )
         MainWindow.setWindowIcon(icon)
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
         self.verticalLayout_4 = QtWidgets.QVBoxLayout(self.centralwidget)
         self.verticalLayout_4.setObjectName("verticalLayout_4")
         self.frame = QtWidgets.QFrame(self.centralwidget)
-        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Expanding)
+        sizePolicy = QtWidgets.QSizePolicy(
+            QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Expanding
+        )
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(self.frame.sizePolicy().hasHeightForWidth())
         self.frame.setSizePolicy(sizePolicy)
         self.frame.setMinimumSize(QtCore.QSize(0, 0))
-        self.frame.setStyleSheet("QFrame {\n"
-"    border: 1px solid #212121;\n"
-"    background-color: #fff;\n"
-"}")
+        self.frame.setStyleSheet(
+            "QFrame {\n"
+            "    border: 1px solid #212121;\n"
+            "    background-color: #fff;\n"
+            "}"
+        )
         self.frame.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.frame.setFrameShadow(QtWidgets.QFrame.Raised)
         self.frame.setObjectName("frame")
@@ -78,7 +88,9 @@ class Ui_MainWindow(object):
         self.statusbar.setObjectName("statusbar")
         MainWindow.setStatusBar(self.statusbar)
         self.dockWidget = QtWidgets.QDockWidget(MainWindow)
-        self.dockWidget.setAllowedAreas(QtCore.Qt.LeftDockWidgetArea|QtCore.Qt.RightDockWidgetArea)
+        self.dockWidget.setAllowedAreas(
+            QtCore.Qt.LeftDockWidgetArea | QtCore.Qt.RightDockWidgetArea
+        )
         self.dockWidget.setWindowTitle("")
         self.dockWidget.setObjectName("dockWidget")
         self.dockWidgetContents = QtWidgets.QWidget()
@@ -116,14 +128,18 @@ class Ui_MainWindow(object):
         self.fileTOMIBtnGroup = QtWidgets.QButtonGroup(MainWindow)
         self.fileTOMIBtnGroup.setObjectName("fileTOMIBtnGroup")
         self.fileTOMIBtnGroup.addButton(self.csvFileRadioButton)
-        self.gridLayout_2.addWidget(self.csvFileRadioButton, 4, 0, 1, 2, QtCore.Qt.AlignHCenter)
+        self.gridLayout_2.addWidget(
+            self.csvFileRadioButton, 4, 0, 1, 2, QtCore.Qt.AlignHCenter
+        )
         self.xlsxFileRadioButton = QtWidgets.QRadioButton(self.groupBox)
         font = QtGui.QFont()
         font.setPointSize(12)
         self.xlsxFileRadioButton.setFont(font)
         self.xlsxFileRadioButton.setObjectName("xlsxFileRadioButton")
         self.fileTOMIBtnGroup.addButton(self.xlsxFileRadioButton)
-        self.gridLayout_2.addWidget(self.xlsxFileRadioButton, 6, 0, 1, 2, QtCore.Qt.AlignHCenter)
+        self.gridLayout_2.addWidget(
+            self.xlsxFileRadioButton, 6, 0, 1, 2, QtCore.Qt.AlignHCenter
+        )
         self.fileNameInput = QtWidgets.QLineEdit(self.groupBox)
         self.fileNameInput.setObjectName("fileNameInput")
         self.gridLayout_2.addWidget(self.fileNameInput, 1, 0, 1, 1)
@@ -133,14 +149,16 @@ class Ui_MainWindow(object):
         self.txtFileRadioButton.setFont(font)
         self.txtFileRadioButton.setObjectName("txtFileRadioButton")
         self.fileTOMIBtnGroup.addButton(self.txtFileRadioButton)
-        self.gridLayout_2.addWidget(self.txtFileRadioButton, 5, 0, 1, 2, QtCore.Qt.AlignHCenter)
+        self.gridLayout_2.addWidget(
+            self.txtFileRadioButton, 5, 0, 1, 2, QtCore.Qt.AlignHCenter
+        )
         self.sheetTabLabel = QtWidgets.QLabel(self.groupBox)
         self.sheetTabLabel.setObjectName("sheetTabLabel")
         self.gridLayout_2.addWidget(self.sheetTabLabel, 7, 0, 1, 2)
         self.sheetPageInput = QtWidgets.QLineEdit(self.groupBox)
-        self.sheetPageInput.setStyleSheet("QLineEdit { \n"
-"    text-align: center; \n"
-"}")
+        self.sheetPageInput.setStyleSheet(
+            "QLineEdit { \n" "    text-align: center; \n" "}"
+        )
         self.sheetPageInput.setObjectName("sheetPageInput")
         self.gridLayout_2.addWidget(self.sheetPageInput, 8, 0, 1, 2)
         self.label_11 = QtWidgets.QLabel(self.groupBox)
@@ -182,7 +200,9 @@ class Ui_MainWindow(object):
         self.verticalLayout_6.addWidget(self.saveButton)
         self.verticalLayout_7.addWidget(self.groupBox_2)
         self.frame_2 = QtWidgets.QFrame(self.tab)
-        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Expanding)
+        sizePolicy = QtWidgets.QSizePolicy(
+            QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Expanding
+        )
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(self.frame_2.sizePolicy().hasHeightForWidth())
@@ -206,17 +226,21 @@ class Ui_MainWindow(object):
         self.gridLayout_5.addWidget(self.label_10, 4, 0, 1, 3)
         self.plotTitleInput_2 = QtWidgets.QLineEdit(self.tab_2)
         self.plotTitleInput_2.setMinimumSize(QtCore.QSize(0, 20))
-        self.plotTitleInput_2.setStyleSheet("QLineEdit {\n"
-"    border: 1px solid #d2d2d2;\n"
-"    background: #fdfdfd;\n"
-"}")
+        self.plotTitleInput_2.setStyleSheet(
+            "QLineEdit {\n"
+            "    border: 1px solid #d2d2d2;\n"
+            "    background: #fdfdfd;\n"
+            "}"
+        )
         self.plotTitleInput_2.setObjectName("plotTitleInput_2")
         self.gridLayout_5.addWidget(self.plotTitleInput_2, 1, 0, 1, 3)
         self.krigingInterpolationModel = QtWidgets.QComboBox(self.tab_2)
-        self.krigingInterpolationModel.setStyleSheet("QComboBox::item {\n"
-"    text-align: center;\n"
-"}")
-        self.krigingInterpolationModel.setSizeAdjustPolicy(QtWidgets.QComboBox.AdjustToContentsOnFirstShow)
+        self.krigingInterpolationModel.setStyleSheet(
+            "QComboBox::item {\n" "    text-align: center;\n" "}"
+        )
+        self.krigingInterpolationModel.setSizeAdjustPolicy(
+            QtWidgets.QComboBox.AdjustToContentsOnFirstShow
+        )
         self.krigingInterpolationModel.setIconSize(QtCore.QSize(24, 24))
         self.krigingInterpolationModel.setObjectName("krigingInterpolationModel")
         self.gridLayout_5.addWidget(self.krigingInterpolationModel, 5, 0, 1, 3)
@@ -227,7 +251,9 @@ class Ui_MainWindow(object):
         self.label_8.setObjectName("label_8")
         self.gridLayout_5.addWidget(self.label_8, 0, 0, 1, 3)
         self.lineColorComboBox_2 = QtWidgets.QComboBox(self.tab_2)
-        self.lineColorComboBox_2.setSizeAdjustPolicy(QtWidgets.QComboBox.AdjustToContentsOnFirstShow)
+        self.lineColorComboBox_2.setSizeAdjustPolicy(
+            QtWidgets.QComboBox.AdjustToContentsOnFirstShow
+        )
         self.lineColorComboBox_2.setObjectName("lineColorComboBox_2")
         self.gridLayout_5.addWidget(self.lineColorComboBox_2, 3, 0, 1, 3)
         self.label_9 = QtWidgets.QLabel(self.tab_2)
@@ -238,7 +264,9 @@ class Ui_MainWindow(object):
         self.gridLayout_5.addWidget(self.label_9, 2, 0, 1, 3)
         self.verticalLayout_5.addLayout(self.gridLayout_5)
         self.frame_3 = QtWidgets.QFrame(self.tab_2)
-        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Expanding)
+        sizePolicy = QtWidgets.QSizePolicy(
+            QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Expanding
+        )
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(self.frame_3.sizePolicy().hasHeightForWidth())
@@ -281,20 +309,66 @@ class Ui_MainWindow(object):
         self.csvFileRadioButton.setText(_translate("MainWindow", ".csv"))
         self.xlsxFileRadioButton.setText(_translate("MainWindow", ".xlsx"))
         self.txtFileRadioButton.setText(_translate("MainWindow", ".txt"))
-        self.sheetTabLabel.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" font-size:12pt;\">Aba da Planilha</span></p></body></html>"))
-        self.label_11.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" font-size:12pt;\">Mesa Rotativa:</span></p></body></html>"))
+        self.sheetTabLabel.setText(
+            _translate(
+                "MainWindow",
+                '<html><head/><body><p align="center"><span style=" font-size:12pt;">Aba da Planilha</span></p></body></html>',
+            )
+        )
+        self.label_11.setText(
+            _translate(
+                "MainWindow",
+                '<html><head/><body><p align="center"><span style=" font-size:12pt;">Mesa Rotativa:</span></p></body></html>',
+            )
+        )
         self.plotTOMIBtn_2.setText(_translate("MainWindow", "Plotar"))
-        self.label_2.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\">Arquivo:</p></body></html>"))
+        self.label_2.setText(
+            _translate(
+                "MainWindow",
+                '<html><head/><body><p align="center">Arquivo:</p></body></html>',
+            )
+        )
         self.groupBox_2.setTitle(_translate("MainWindow", "Exportar"))
-        self.label.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" font-size:12pt;\">Nome da Formação:</span></p></body></html>"))
-        self.exportDataButton.setToolTip(_translate("MainWindow", "Exportar o dado de TOMI Index"))
-        self.exportDataButton.setStatusTip(_translate("MainWindow", "Exportar o dado de TOMI Index. Lembre-se que o dado vai ser exportado utilizando \'.\' ao invés de \',\' para delimitar o decimal."))
+        self.label.setText(
+            _translate(
+                "MainWindow",
+                '<html><head/><body><p align="center"><span style=" font-size:12pt;">Nome da Formação:</span></p></body></html>',
+            )
+        )
+        self.exportDataButton.setToolTip(
+            _translate("MainWindow", "Exportar o dado de TOMI Index")
+        )
+        self.exportDataButton.setStatusTip(
+            _translate(
+                "MainWindow",
+                "Exportar o dado de TOMI Index. Lembre-se que o dado vai ser exportado utilizando '.' ao invés de ',' para delimitar o decimal.",
+            )
+        )
         self.exportDataButton.setText(_translate("MainWindow", "Exportar Dados"))
         self.saveButton.setText(_translate("MainWindow", "Salvar Imagem"))
-        self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab), _translate("MainWindow", "Importação"))
-        self.label_10.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\">Modelo de Interpolação:</p></body></html>"))
-        self.label_8.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\">Título do plot:</p></body></html>"))
-        self.label_9.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\">Cor da linha:</p></body></html>"))
-        self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_2), _translate("MainWindow", "Config. plot"))
+        self.tabWidget.setTabText(
+            self.tabWidget.indexOf(self.tab), _translate("MainWindow", "Importação")
+        )
+        self.label_10.setText(
+            _translate(
+                "MainWindow",
+                '<html><head/><body><p align="center">Modelo de Interpolação:</p></body></html>',
+            )
+        )
+        self.label_8.setText(
+            _translate(
+                "MainWindow",
+                '<html><head/><body><p align="center">Título do plot:</p></body></html>',
+            )
+        )
+        self.label_9.setText(
+            _translate(
+                "MainWindow",
+                '<html><head/><body><p align="center">Cor da linha:</p></body></html>',
+            )
+        )
+        self.tabWidget.setTabText(
+            self.tabWidget.indexOf(self.tab_2), _translate("MainWindow", "Config. plot")
+        )
         self.actionSidebar.setText(_translate("MainWindow", "Sidebar"))
         self.actionDocumentation.setText(_translate("MainWindow", "Documentation"))
