@@ -13,9 +13,7 @@ import matplotlib.pyplot as plt
 from PyQt5.QtWidgets import QMessageBox, QVBoxLayout
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
 from fbs_runtime.application_context.PyQt5 import ApplicationContext
-from PyQt5.QtCore import QFile, QRectF, QUrl, Qt
 from PyQt5 import uic
-from PyQt5.QtGui import QIcon, QDesktopServices
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -45,6 +43,12 @@ class MainWindow(QMainWindow):
         self.refreshButton.clicked.connect(self.refresh_combobox)
         self.showDataPushButton.clicked.connect(self.add_data_to_table)
         self.plotTOMIBtn.clicked.connect(self.plot_TOMI_index)
+
+        self.matplotlib_toolbar = NavigationToolbar2QT(self.canvas)
+        self.saveButton.clicked.connect(self.matplotlib_toolbar.save_figure)
+        self.exportDataButton.clicked.connect(self.export_data)
+
+        self.tomi_dataframe = None
 
         self.show()
 
@@ -124,9 +128,9 @@ class MainWindow(QMainWindow):
             )
 
     def tomi_index_calculation(self):
-        dataframe = self.read_file()
-        d13C = dataframe.iloc[:, 5]
-        TOC_TN = dataframe.iloc[:, 6]
+        self.tomi_dataframe = self.read_file()
+        d13C = self.tomi_dataframe.iloc[:, 5]
+        TOC_TN = self.tomi_dataframe.iloc[:, 6]
         self.krigingModel = "linear"
 
         # do artigo
@@ -169,8 +173,9 @@ class MainWindow(QMainWindow):
 
         invert_axis = False
 
-        dataframe = self.read_file()
-        profundidade = dataframe.iloc[:, 0]
+        # dataframe = self.read_file()
+        profundidade = self.tomi_dataframe.iloc[:, 0]
+        tvd = profundidade
 
         if self.mesa == "":
             tvd = profundidade
@@ -188,38 +193,26 @@ class MainWindow(QMainWindow):
         amostra_probabilidade = self.tomi_index_calculation()
         amostra_probabilidade = pd.Series(amostra_probabilidade)
 
-        # Remove NaN values
-        mask = ~amostra_probabilidade.isna()
-        amostra_probabilidade = amostra_probabilidade[mask]
-        tvd = tvd[mask]
-
-        print(f"Length of amostra_probabilidade: {len(amostra_probabilidade)}")
-        print(f"Length of tvd: {len(tvd)}")
-        print(f"Type of amostra_probabilidade: {type(amostra_probabilidade)}")
-        print(f"Type of tvd: {type(tvd)}")
-        print(f"Contents of amostra_probabilidade: {amostra_probabilidade}")
-        print(f"Contents of tvd: {tvd}")
-
         canvas = self.create_plot(
             amostra_probabilidade,
             tvd,
             "TOMI index",
             "Profundidade (m)",
             "TOMI Index",
-            invert_axis=invert_axis,
+            color="blue",
         )
 
         self.clear_and_set_layout(self.plotWidget, canvas)
 
     def create_plot(
-        x_data, y_data, x_label, y_label, title, color=None, invert_axis=False
+        self, x_data, y_data, x_label, y_label, title, color=None, invert_axis=False
     ):
         fig, ax = plt.subplots()
 
         if color:
-            ax.plot(x_data, y_data, color=color)
+            ax.plot(x_data, y_data, "s-", color=color, label="TOMI")
         else:
-            ax.plot(x_data, y_data)
+            ax.plot(x_data, y_data, "s-", label="TOMI")
 
         if invert_axis:
             ax.invert_yaxis()
@@ -228,10 +221,11 @@ class MainWindow(QMainWindow):
         ax.set_xlabel(x_label)
         ax.set_ylabel(y_label)
         ax.set_title(title, fontsize=14)
+        ax.grid()
 
         return FigureCanvas(fig)
 
-    def clear_and_set_layout(widget, canvas):
+    def clear_and_set_layout(self, widget, canvas):
         """Modular function belonging to preview_wavelet"""
         if widget.layout() is not None:
             for i in reversed(range(widget.layout().count())):
@@ -258,6 +252,51 @@ class MainWindow(QMainWindow):
         except Exception as e:
             QMessageBox.critical(self, "Error", f"Um erro ocorreu: {e}")
             return pd.DataFrame()
+
+    def export_data(self):
+        profundidade = self.tomi_dataframe.iloc[:, 0]
+        tvdss = self.tomi_dataframe.iloc[:, 1]
+        d13C = self.tomi_dataframe.iloc[:, 5]
+        TOC_TN = self.tomi_dataframe.iloc[:, 6]
+        amostra_probabilidade = self.tomi_index_calculation()
+
+        export_dataframe = pd.DataFrame(
+            {
+                "Prof": profundidade,
+                "TVDSS": tvdss,
+                "d13C": d13C,
+                "TOC_TN": TOC_TN,
+                "TOMI Index": amostra_probabilidade,
+            }
+        )
+
+        # Open a file dialog for the user to select the file name and location
+        dialog = QFileDialog()
+        filename, _ = dialog.getSaveFileName(filter="Excel files (*.xlsx)")
+
+        self.formationCheck = "Formação"
+
+        if filename:
+            # If a file name is selected, export the dataframe to a .csv file
+            for col in export_dataframe.columns:
+                if export_dataframe[col].dtype == "float64":
+                    export_dataframe[col] = export_dataframe[col].apply(
+                        lambda x: str(x).replace(".", ",")
+                    )
+
+            export_dataframe.to_excel(
+                filename, sheet_name=self.formationCheck[0], index=False
+            )
+            QMessageBox.information(
+                self,
+                "Exportação de dados",
+                f"Os dados foram exportados com sucesso para {filename}",
+            )
+            QMessageBox.information(
+                self,
+                "Delimitação",
+                f"Lembre-se que os dados foram exportados com '.' ao invés de ','",
+            )
 
 
 def main():
