@@ -2,3 +2,6 @@ numpy
 matplotlib
 pandas
 pykrige
+neofbs
+plotly
+openpyxl

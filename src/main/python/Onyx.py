@@ -6,9 +6,15 @@ from PyQt5.QtWidgets import (
     QVBoxLayout,
     QMainWindow,
     QMessageBox,
+    QTableWidget,
+    QTableWidgetItem,
 )
+import matplotlib.pyplot as plt
+from PyQt5.QtWidgets import QMessageBox, QVBoxLayout
+from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
 from fbs_runtime.application_context.PyQt5 import ApplicationContext
 from PyQt5.QtCore import QFile, QRectF, QUrl, Qt
+from PyQt5 import uic
 from PyQt5.QtGui import QIcon, QDesktopServices
 import numpy as np
 import pandas as pd
@@ -23,95 +29,30 @@ import sys
 import shutil
 from openpyxl import Workbook
 
-# plt.style.use(['ggplot'])
+GUI = "src/main/python/gui/MainWindowOnyx.ui"
 
 
-class MainProgramWindow(QMainWindow, Ui_MainWindow):
+class MainWindow(QMainWindow):
     def __init__(self):
-        super(MainProgramWindow, self).__init__()
+        super(MainWindow, self).__init__()
 
-        self.setupUi(self)
-        self.setWindowTitle("TOMI Calculator")
-        # self.setWindowIcon(QIcon("../icons/Icon.ico"))
+        uic.loadUi(GUI, self)
 
-        self.figure = Figure(figsize=(5, 6))
-        self.canvas = FigureCanvasQTAgg(self.figure)
-
-        # Create a QVBoxLayout within your QWidget
-        self.plotLayout = QVBoxLayout(self.frame)
-        self.plotLayout.setContentsMargins(0, 0, 0, 0)  # Remove margins
-        self.plotLayout.setSpacing(0)  # Remove spacing
-        # Add the FigureCanvasQTAgg object to the layout
-        self.plotLayout.addWidget(self.canvas)
-
-        # Hiding the excel sheet options
-        self.xlsxFileRadioButton.toggled.connect(self.show_xlsx_options)
-        # Initializing the state
-        self.sheetTabLabel.hide()
-        self.sheetPageInput.hide()
-
-        # Set the layout of the parent widget
-        self.matplotlib_toolbar = NavigationToolbar2QT(self.canvas)
-        # Create a custom toolbar
-        # Create a button for each function and add it to the custom toolbar
-        self.homeButton.clicked.connect(self.matplotlib_toolbar.home)
-        self.backButton.clicked.connect(self.matplotlib_toolbar.back)
-        self.forwardButton.clicked.connect(self.matplotlib_toolbar.forward)
-        self.panButton.clicked.connect(self.matplotlib_toolbar.pan)
-        self.zoomButton.clicked.connect(self.matplotlib_toolbar.zoom)
-        self.editButton.clicked.connect(self.matplotlib_toolbar.edit_parameters)
-        self.saveButton.clicked.connect(self.matplotlib_toolbar.save_figure)
-
-        self.actionSidebar.triggered.connect(self.toggle_sidebar)
-        self.actionDocumentation.triggered.connect(
-            lambda: self.open_documentation(
-                "https://github.com/albano-a/onyx-tomi-index-plotter"
-            )
-        )
-
-        self.selected_file = None
+        self.nextPage.clicked.connect(self.go_to_page2)
+        self.backPage.clicked.connect(self.go_to_page1)
 
         self.importFileBtn.clicked.connect(self.import_file)
-
-        chooseColors = [
-            "Blue",
-            "Red",
-            "Yellow",
-            "Green",
-            "Purple",
-            "Orange",
-            "Pink",
-            "Black",
-            "White",
-        ]
-
-        self.lineColorComboBox_2.addItems(chooseColors)
-
-        interpolationModels = [
-            "Linear",
-            "Gaussian",
-            "Power",
-            "Spherical",
-            "Exponential",
-            "Hole-Effect",
-        ]
-
-        self.krigingInterpolationModel.addItems(interpolationModels)
-
-        self.plotTOMIBtn.clicked.connect(self.plot_tomi_index)
-        self.plotTOMIBtn_2.clicked.connect(self.plot_tomi_index)
-        self.exportDataButton.clicked.connect(self.export_data)
+        self.refreshButton.clicked.connect(self.refresh_combobox)
+        self.showDataPushButton.clicked.connect(self.add_data_to_table)
+        self.plotTOMIBtn.clicked.connect(self.plot_TOMI_index)
 
         self.show()
 
-    def open_documentation(self, url):
-        QDesktopServices.openUrl(QUrl(url))
+    def go_to_page1(self):
+        self.stackedWidget.setCurrentIndex(0)
 
-    def toggle_sidebar(self):
-        if self.dockWidget.isVisible():
-            self.dockWidget.hide()
-        else:
-            self.dockWidget.show()
+    def go_to_page2(self):
+        self.stackedWidget.setCurrentIndex(1)
 
     def import_file(self):
         file_dialog = QFileDialog()
@@ -119,74 +60,74 @@ class MainProgramWindow(QMainWindow, Ui_MainWindow):
             self,
             "Open File",
             "uploads",
-            "CSV, TXT, XLSX (*.csv *.txt *.xlsx);;All Files (*)",
+            "XLSX (*.xlsx);;All Files (*)",
         )
         # import .csv and .txt files
 
         if file_path:
             self.fileNameInput.setText(file_path)
 
-    def redraw_plot(self):
-        self.plot_tomi_index()
-
-    def show_xlsx_options(self):
-        if self.xlsxFileRadioButton.isChecked():
-            self.sheetTabLabel.show()
-            self.sheetPageInput.show()
-        else:
-            self.sheetTabLabel.hide()
-            self.sheetPageInput.hide()
-
-    def read_file(self):
-        dataframe = pd.DataFrame()
-
-        checked_button = self.fileTOMIBtnGroup.checkedButton()
-        if checked_button is None:
-            QMessageBox.warning(self, "Error", "Selecione o tipo de arquivo")
-            return pd.DataFrame()
-
-        self.file_type_button_text = self.fileTOMIBtnGroup.checkedButton().text()
-        self.selected_file = self.fileNameInput.text()
-
-        if self.file_type_button_text == ".csv":
+    def refresh_combobox(self):
+        file_path = self.fileNameInput.text()
+        if file_path:
             try:
-                dataframe = pd.read_csv(self.selected_file, skiprows=0, delimiter=";")
-                return dataframe
+                workbooks = pd.ExcelFile(file_path).sheet_names
+                self.workbookComboBox.clear()
+                self.workbookComboBox.addItems(workbooks)
             except Exception as e:
-                QMessageBox.critical(self, "Error", f"Um erro ocorreu: {e}")
-                return pd.DataFrame()
-
-        elif self.file_type_button_text == ".txt":
-            try:
-                dataframe = pd.read_txt(self.selected_file, skiprows=0, delimiter=";")
-                return dataframe
-            except Exception as e:
-                QMessageBox.critical(self, "Error", f"Um erro ocorreu: {e}")
-                return pd.DataFrame()
-
-        elif self.file_type_button_text == ".xlsx":
-            sheetTab = self.sheetPageInput.text()
-            try:
-                dataframe = pd.read_excel(
-                    self.selected_file,
-                    skiprows=0,
-                    decimal=",",
-                    sheet_name=sheetTab,
+                QMessageBox.critical(
+                    self, "Error", f"Failed to load Excel file: {str(e)}"
                 )
-                return dataframe
-            except Exception as e:
-                QMessageBox.critical(self, "Error", f"Um erro ocorreu: {e}")
-                return pd.DataFrame()
         else:
-            QMessageBox.warning(self, "Error", "Selecione o tipo de arquivo")
-            return pd.DataFrame()
+            QMessageBox.warning(self, "Warning", "Please select an Excel file first.")
+
+    def add_data_to_table(self):
+        file_path = self.fileNameInput.text()
+        workbook_name = self.workbookComboBox.currentText()
+
+        if file_path and workbook_name:
+            try:
+                # Load the Excel file
+                excel_file = pd.ExcelFile(file_path)
+                sheet_names = excel_file.sheet_names
+
+                # Clear existing tabs
+                self.showExcelFileDataTab.clear()
+
+                # Create a tab for each sheet in the workbook
+                for sheet_name in sheet_names:
+                    sheet_data = pd.read_excel(file_path, sheet_name=sheet_name)
+                    table_widget = QTableWidget()
+                    table_widget.setRowCount(sheet_data.shape[0])
+                    table_widget.setColumnCount(sheet_data.shape[1])
+                    table_widget.setHorizontalHeaderLabels(sheet_data.columns)
+
+                    # Populate the table with data
+                    for i, row in enumerate(sheet_data.iterrows()):
+                        for j, value in enumerate(row[1]):
+                            item = QTableWidgetItem(str(value))
+                            table_widget.setItem(i, j, item)
+
+                    # Add the table widget to the tab
+                    self.showExcelFileDataTab.addTab(table_widget, sheet_name)
+
+                # Show the tab widget
+                self.stackedWidget.setCurrentIndex(2)
+
+            except Exception as e:
+                QMessageBox.critical(
+                    self, "Error", f"Failed to load Excel data: {str(e)}"
+                )
+        else:
+            QMessageBox.warning(
+                self, "Warning", "Please select an Excel file and workbook first."
+            )
 
     def tomi_index_calculation(self):
         dataframe = self.read_file()
         d13C = dataframe.iloc[:, 5]
         TOC_TN = dataframe.iloc[:, 6]
-        self.krigingModel = self.krigingInterpolationModel.currentText()
-        self.krigingModel = self.krigingModel.lower()
+        self.krigingModel = "linear"
 
         # do artigo
         art_toc_tn = np.array([4, 4, 4, 4, 10, 10, 10, 10, 100, 100, 100, 100])
@@ -223,11 +164,7 @@ class MainProgramWindow(QMainWindow, Ui_MainWindow):
     def mesa_rotativa_conversion(self, mesaRotativaInput, profundidade):
         return mesaRotativaInput - profundidade
 
-    def plot_tomi_index(self):
-        self.figure.clear()
-        self.lineColor = self.lineColorComboBox_2.currentText()
-        self.lineColor = self.lineColor.lower()
-        self.Title = self.plotTitleInput_2.text()
+    def plot_TOMI_index(self):
         self.mesa = self.mesaRotativaInput.text()
 
         invert_axis = False
@@ -249,72 +186,83 @@ class MainProgramWindow(QMainWindow, Ui_MainWindow):
                 return
 
         amostra_probabilidade = self.tomi_index_calculation()
-        ax = self.canvas.figure.add_subplot(111)
-        ax.set_title(self.Title, fontweight="bold", fontsize=14, color="#212121")
-        ax.plot(amostra_probabilidade, tvd, "s-", color=self.lineColor, label="TOMI")
-        if invert_axis:
-            ax.invert_yaxis()
-        # ax.invert_yaxis()
-        ax.set_xlim(0, 100)
-        ax.set_xlabel("TOMI index (%)")
-        ax.set_ylabel("Profundidade (m)")
-        ax.grid()
-        # self.canvas.figure.set_tight_layout(True)
-        self.canvas.draw()
+        amostra_probabilidade = pd.Series(amostra_probabilidade)
 
-    def export_data(self):
-        dataframe = self.read_file()
-        profundidade = dataframe.iloc[:, 0]
-        tvdss = dataframe.iloc[:, 1]
-        d13C = dataframe.iloc[:, 5]
-        TOC_TN = dataframe.iloc[:, 6]
-        amostra_probabilidade = self.tomi_index_calculation()
+        # Remove NaN values
+        mask = ~amostra_probabilidade.isna()
+        amostra_probabilidade = amostra_probabilidade[mask]
+        tvd = tvd[mask]
 
-        self.formationName = self.formationNameInput.text()
+        print(f"Length of amostra_probabilidade: {len(amostra_probabilidade)}")
+        print(f"Length of tvd: {len(tvd)}")
+        print(f"Type of amostra_probabilidade: {type(amostra_probabilidade)}")
+        print(f"Type of tvd: {type(tvd)}")
+        print(f"Contents of amostra_probabilidade: {amostra_probabilidade}")
+        print(f"Contents of tvd: {tvd}")
 
-        # Create a new dataframe
-        export_dataframe = pd.DataFrame(
-            {
-                "Prof": profundidade,
-                "TVDSS": tvdss,
-                "d13C": d13C,
-                "TOC_TN": TOC_TN,
-                "TOMI Index": amostra_probabilidade,
-            }
+        canvas = self.create_plot(
+            amostra_probabilidade,
+            tvd,
+            "TOMI index",
+            "Profundidade (m)",
+            "TOMI Index",
+            invert_axis=invert_axis,
         )
 
-        # Open a file dialog for the user to select the file name and location
-        dialog = QFileDialog()
-        filename, _ = dialog.getSaveFileName(filter="Excel files (*.xlsx)")
+        self.clear_and_set_layout(self.plotWidget, canvas)
 
-        self.formationCheck = [self.formationName if self.formationName else "Formação"]
+    def create_plot(
+        x_data, y_data, x_label, y_label, title, color=None, invert_axis=False
+    ):
+        fig, ax = plt.subplots()
 
-        if filename:
-            # If a file name is selected, export the dataframe to a .csv file
-            for col in export_dataframe.columns:
-                if export_dataframe[col].dtype == "float64":
-                    export_dataframe[col] = export_dataframe[col].apply(
-                        lambda x: str(x).replace(".", ",")
-                    )
+        if color:
+            ax.plot(x_data, y_data, color=color)
+        else:
+            ax.plot(x_data, y_data)
 
-            export_dataframe.to_excel(
-                filename, sheet_name=self.formationCheck[0], index=False
+        if invert_axis:
+            ax.invert_yaxis()
+
+        ax.set_xlim(0, 100)
+        ax.set_xlabel(x_label)
+        ax.set_ylabel(y_label)
+        ax.set_title(title, fontsize=14)
+
+        return FigureCanvas(fig)
+
+    def clear_and_set_layout(widget, canvas):
+        """Modular function belonging to preview_wavelet"""
+        if widget.layout() is not None:
+            for i in reversed(range(widget.layout().count())):
+                widget.layout().itemAt(i).widget().setParent(None)
+        else:
+            layout = QVBoxLayout(widget)
+            widget.setLayout(layout)
+        widget.layout().addWidget(canvas)
+
+    def read_file(self):
+        dataframe = pd.DataFrame()
+
+        self.selected_file = self.fileNameInput.text()
+
+        sheetTab = self.workbookComboBox.currentText()
+        try:
+            dataframe = pd.read_excel(
+                self.selected_file,
+                skiprows=0,
+                decimal=",",
+                sheet_name=sheetTab,
             )
-            QMessageBox.information(
-                self,
-                "Exportação de dados",
-                f"Os dados foram exportados com sucesso para {filename}",
-            )
-            QMessageBox.information(
-                self,
-                "Delimitação",
-                f"Lembre-se que os dados foram exportados com '.' ao invés de ','",
-            )
+            return dataframe
+        except Exception as e:
+            QMessageBox.critical(self, "Error", f"Um erro ocorreu: {e}")
+            return pd.DataFrame()
 
 
 def main():
     appctx = ApplicationContext()
-    window = MainProgramWindow()
+    window = MainWindow()
     window.show()
     sys.exit(appctx.app.exec())
 
