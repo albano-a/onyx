@@ -44,8 +44,6 @@ class MainWindow(QMainWindow):
         self.showDataPushButton.clicked.connect(self.add_data_to_table)
         self.plotTOMIBtn.clicked.connect(self.plot_TOMI_index)
 
-        self.matplotlib_toolbar = NavigationToolbar2QT(self.canvas)
-        self.saveButton.clicked.connect(self.matplotlib_toolbar.save_figure)
         self.exportDataButton.clicked.connect(self.export_data)
 
         self.tomi_dataframe = None
@@ -63,7 +61,7 @@ class MainWindow(QMainWindow):
         file_path, _ = file_dialog.getOpenFileName(
             self,
             "Open File",
-            "uploads",
+            "tests",
             "XLSX (*.xlsx);;All Files (*)",
         )
         # import .csv and .txt files
@@ -173,7 +171,7 @@ class MainWindow(QMainWindow):
 
         invert_axis = False
 
-        # dataframe = self.read_file()
+        self.tomi_dataframe = self.read_file()
         profundidade = self.tomi_dataframe.iloc[:, 0]
         tvd = profundidade
 
@@ -201,6 +199,8 @@ class MainWindow(QMainWindow):
             "TOMI Index",
             color="blue",
         )
+        self.matplotlib_toolbar = NavigationToolbar2QT(canvas)
+        self.saveButton.clicked.connect(self.matplotlib_toolbar.save_figure)
 
         self.clear_and_set_layout(self.plotWidget, canvas)
 
@@ -254,6 +254,7 @@ class MainWindow(QMainWindow):
             return pd.DataFrame()
 
     def export_data(self):
+        self.tomi_dataframe = self.read_file()
         profundidade = self.tomi_dataframe.iloc[:, 0]
         tvdss = self.tomi_dataframe.iloc[:, 1]
         d13C = self.tomi_dataframe.iloc[:, 5]
