@@ -19,7 +19,6 @@ import pandas as pd
 import matplotlib.pyplot as plt
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg, NavigationToolbar2QT
 from matplotlib.figure import Figure
-from tomiUI import Ui_MainWindow
 import plotly.graph_objects as go
 from pykrige.ok import OrdinaryKriging
 import os
