@@ -12,6 +12,9 @@ from PyQt5.QtWidgets import (
 import matplotlib.pyplot as plt
 from PyQt5.QtWidgets import QMessageBox, QVBoxLayout
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
+from sklearn.gaussian_process import GaussianProcessRegressor
+from sklearn.gaussian_process.kernels import RBF, ConstantKernel as C
+from sklearn.impute import SimpleImputer
 from fbs_runtime.application_context.PyQt5 import ApplicationContext
 from PyQt5 import uic
 import numpy as np
@@ -126,41 +129,58 @@ class MainWindow(QMainWindow):
 
     def tomi_index_calculation(self):
         self.tomi_dataframe = self.read_file()
-        d13C = self.tomi_dataframe.iloc[:, 5]
-        TOC_TN = self.tomi_dataframe.iloc[:, 6]
-        self.krigingModel = "linear"
+        d15N = self.tomi_dataframe["d15N"].values
+        d13C = self.tomi_dataframe["d13C"].values
+        TOC_TN = self.tomi_dataframe["TOC/TN"].values
 
-        # do artigo
-        art_toc_tn = np.array([4, 4, 4, 4, 10, 10, 10, 10, 100, 100, 100, 100])
-        art_c13corg = np.array(
+        # Dados dos pontos-chave de probabilidade do
+        TOC_TN_ARTIGO = np.array(
+            [4, 4, 4, 4, 10, 10, 10, 10, 100, 100, 100, 100]
+        )  # Lista/array dos valores de TOC:TN dos pontos-chave
+        C13CORG_ARTIGO = np.array(
             [-10, -22, -25, -34, -10, -22, -25, -34, -10, -22, -25, -34]
-        )
-        probabilidade = np.array([0, 10, 20, 30, 20, 30, 40, 50, 90, 95, 98, 100])
+        )  # Lista/array dos valores de δ13Corg dos pontos-chave
+        D15N_ARTIGO = np.array(
+            [12, 3, 0, -12, 12, 3, 0, -12, 12, 3, 0, -12]  # MUDAR
+        )  # Lista/array dos valores do terceiro variável
+
+        PROBABILIDADE = np.array(
+            [0, 10, 20, 30, 20, 30, 40, 50, 90, 95, 98, 100]
+        )  # Lista/array dos valores de probabilidade dos pontos-chave
 
         # Dados das suas amostras
-        amostra_art_toc_tn = (
-            TOC_TN  # Lista/array dos valores de TOC:TN das suas amostras
-        )
-        amostra_art_c13corg = (
-            d13C  # Lista/array dos valores de δ13Corg das suas amostras
-        )
+        amostra_TOC_TN = TOC_TN
+        amostra_C13CORG = d13C
+        amostra_D15N = d15N
 
-        # Grade de valores para interpolação
-        art_toc_tn_grid = np.linspace(0, 100, 1001)  # Valores de TOC:TN para a grade
-        art_c13corg_grid = np.linspace(-34, -10, 241)  # Valores de δ13Corg para a grade
+        # Sample data
+        X = np.column_stack((TOC_TN_ARTIGO, C13CORG_ARTIGO, D15N_ARTIGO))
+        y = PROBABILIDADE
 
-        # Kriging
-        OK = OrdinaryKriging(
-            art_toc_tn, art_c13corg, probabilidade, variogram_model=self.krigingModel
-        )
-        z, ss = OK.execute("grid", art_toc_tn_grid, art_c13corg_grid)
-
-        # Aplicação dos dados das suas amostras na grade interpolada
-        amostra_probabilidade, ss = OK.execute(
-            "points", amostra_art_toc_tn, amostra_art_c13corg
+        # Define the kernel
+        kernel = C(1.0, (1e-3, 1e4)) * RBF(
+            length_scale=1.0, length_scale_bounds=(1e-2, 1e2)
         )
 
-        return amostra_probabilidade
+        # Create the Gaussian Process model
+        gp = GaussianProcessRegressor(kernel=kernel, n_restarts_optimizer=10)
+
+        # Fit to the data
+        gp.fit(X, y)
+
+        # Predict on new data
+        X_new = np.column_stack((amostra_TOC_TN, amostra_C13CORG, amostra_D15N))
+
+        # Handle NaN values by imputing them
+        imputer = SimpleImputer(strategy="mean")
+        X_new_imputed = imputer.fit_transform(X_new)
+
+        # Predict with the imputed data
+        y_pred, sigma = gp.predict(X_new_imputed, return_std=True)
+
+        amostra = 100 - y_pred
+
+        return amostra
 
     def mesa_rotativa_conversion(self, mesaRotativaInput, profundidade):
         return mesaRotativaInput - profundidade
