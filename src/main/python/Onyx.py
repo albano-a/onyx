@@ -1,8 +1,5 @@
 from PyQt5.QtWidgets import (
     QFileDialog,
-    QApplication,
-    QPushButton,
-    QToolBar,
     QVBoxLayout,
     QMainWindow,
     QMessageBox,
@@ -21,13 +18,7 @@ import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg, NavigationToolbar2QT
-from matplotlib.figure import Figure
-import plotly.graph_objects as go
-from pykrige.ok import OrdinaryKriging
-import os
 import sys
-import shutil
-from openpyxl import Workbook
 
 GUI = "src/main/python/gui/MainWindowOnyx.ui"
 
@@ -158,7 +149,7 @@ class MainWindow(QMainWindow):
         y = PROBABILIDADE
 
         # Define the kernel
-        kernel = C(1.0, (1e-3, 1e4)) * RBF(
+        kernel = C(1.0, (1e-3, 1e3)) * RBF(
             length_scale=1.0, length_scale_bounds=(1e-2, 1e2)
         )
 
@@ -186,33 +177,16 @@ class MainWindow(QMainWindow):
         return mesaRotativaInput - profundidade
 
     def plot_TOMI_index(self):
-        self.mesa = self.mesaRotativaInput.text()
-
-        invert_axis = False
-
         self.tomi_dataframe = self.read_file()
         profundidade = self.tomi_dataframe.iloc[:, 0]
-        tvd = profundidade
 
-        if self.mesa == "":
-            tvd = profundidade
-            invert_axis = True
-        else:
-            try:
-                invert_axis = False
-                tvd = self.mesa_rotativa_conversion(int(self.mesa), profundidade)
-            except ValueError:
-                QMessageBox.critical(
-                    self, "Error", "Digite um valor numérico para a mesa rotativa."
-                )
-                return
-
-        amostra_probabilidade = self.tomi_index_calculation()
-        amostra_probabilidade = pd.Series(amostra_probabilidade)
+        tomi_index = self.tomi_index_calculation()
+        print(tomi_index)
+        tomi_index = pd.Series(tomi_index)
 
         canvas = self.create_plot(
-            amostra_probabilidade,
-            tvd,
+            tomi_index,
+            profundidade,
             "TOMI index",
             "Profundidade (m)",
             "TOMI Index",
@@ -223,9 +197,7 @@ class MainWindow(QMainWindow):
 
         self.clear_and_set_layout(self.plotWidget, canvas)
 
-    def create_plot(
-        self, x_data, y_data, x_label, y_label, title, color=None, invert_axis=False
-    ):
+    def create_plot(self, x_data, y_data, x_label, y_label, title, color=None):
         fig, ax = plt.subplots()
 
         if color:
@@ -233,8 +205,7 @@ class MainWindow(QMainWindow):
         else:
             ax.plot(x_data, y_data, "s-", label="TOMI")
 
-        if invert_axis:
-            ax.invert_yaxis()
+        ax.invert_yaxis()
 
         ax.set_xlim(0, 100)
         ax.set_xlabel(x_label)
@@ -275,20 +246,23 @@ class MainWindow(QMainWindow):
     def export_data(self):
         self.tomi_dataframe = self.read_file()
         profundidade = self.tomi_dataframe.iloc[:, 0]
-        tvdss = self.tomi_dataframe.iloc[:, 1]
-        d13C = self.tomi_dataframe.iloc[:, 5]
-        TOC_TN = self.tomi_dataframe.iloc[:, 6]
+        # tvdss = self.tomi_dataframe.iloc[:, 1]
+        d15N = self.tomi_dataframe["d15N"].values
+        d13C = self.tomi_dataframe["d13C"].values
+        TOC_TN = self.tomi_dataframe["TOC/TN"].values
         amostra_probabilidade = self.tomi_index_calculation()
 
         export_dataframe = pd.DataFrame(
             {
                 "Prof": profundidade,
-                "TVDSS": tvdss,
+                "d15N": d15N,
                 "d13C": d13C,
                 "TOC_TN": TOC_TN,
                 "TOMI Index": amostra_probabilidade,
             }
         )
+
+        export_dataframe = self.format_dataframe(export_dataframe)
 
         # Open a file dialog for the user to select the file name and location
         dialog = QFileDialog()
@@ -317,6 +291,22 @@ class MainWindow(QMainWindow):
                 "Delimitação",
                 f"Lembre-se que os dados foram exportados com '.' ao invés de ','",
             )
+
+    def format_dataframe(self, dataframe):
+        new_dataframe = pd.DataFrame(columns=dataframe.columns)
+
+        for index, row in dataframe.iterrows():
+            # Repeat each row three times
+            for i in range(3):
+                new_row = row.copy()
+                new_row.iloc[0] = row.iloc[0] - 2 + i
+                new_dataframe = pd.concat(
+                    [new_dataframe, pd.DataFrame([new_row])], ignore_index=True
+                )
+
+        dataframe = new_dataframe
+
+        return dataframe
 
 
 def main():
