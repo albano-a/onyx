@@ -124,27 +124,21 @@ class MainWindow(QMainWindow):
         d13C = self.tomi_dataframe["d13C"].values
         TOC_TN = self.tomi_dataframe["TOC/TN"].values
 
-        # Dados dos pontos-chave de probabilidade do
-        TOC_TN_ARTIGO = np.array(
-            [4, 4, 4, 4, 10, 10, 10, 10, 100, 100, 100, 100]
-        )  # Lista/array dos valores de TOC:TN dos pontos-chave
+        # Dados dos pontos-chave de probabilidade definidos empiricamente
+        # no artigo
+        TOC_TN_ARTIGO = np.array([4, 4, 4, 4, 10, 10, 10, 10, 100, 100, 100, 100])
         C13CORG_ARTIGO = np.array(
             [-10, -22, -25, -34, -10, -22, -25, -34, -10, -22, -25, -34]
-        )  # Lista/array dos valores de δ13Corg dos pontos-chave
-        D15N_ARTIGO = np.array(
-            [12, 3, 0, -12, 12, 3, 0, -12, 12, 3, 0, -12]  # MUDAR
-        )  # Lista/array dos valores do terceiro variável
+        )
+        D15N_ARTIGO = np.array([12, 3, 0, -12, 12, 3, 0, -12, 12, 3, 0, -12])
 
-        PROBABILIDADE = np.array(
-            [0, 10, 20, 30, 20, 30, 40, 50, 90, 95, 98, 100]
-        )  # Lista/array dos valores de probabilidade dos pontos-chave
+        PROBABILIDADE = np.array([0, 10, 20, 30, 20, 30, 40, 50, 90, 95, 98, 100])
 
-        # Dados das suas amostras
+        # Dados das amostras da bacia
         amostra_TOC_TN = TOC_TN
         amostra_C13CORG = d13C
         amostra_D15N = d15N
 
-        # Sample data
         X = np.column_stack((TOC_TN_ARTIGO, C13CORG_ARTIGO, D15N_ARTIGO))
         y = PROBABILIDADE
 
