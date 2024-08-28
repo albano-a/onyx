@@ -57,7 +57,6 @@ class MainWindow(QMainWindow):
             "tests",
             "XLSX (*.xlsx);;All Files (*)",
         )
-        # import .csv and .txt files
 
         if file_path:
             self.fileNameInput.setText(file_path)
